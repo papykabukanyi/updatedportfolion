@@ -162,7 +162,7 @@ export async function POST(request) {
       `.trim(),
     }
 
-    const transporter = await createTransporter()
+    const transporter = getTransporter()
     const info = await transporter.sendMail(mailOptions)
 
     console.log('Mail sent — messageId:', info.messageId)
