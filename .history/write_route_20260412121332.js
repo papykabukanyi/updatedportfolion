@@ -1,8 +1,11 @@
-// Contact form API - uses Resend HTTPS API (no SMTP, works on Railway)
+const fs = require('fs')
+const path = require('path')
+
+const content = `// Contact form API - uses Resend HTTPS API (no SMTP, works on Railway)
 
 const stripHtml = (str) => String(str).replace(/<[^>]*>/g, '').trim()
 const clamp = (str, max) => stripHtml(str).slice(0, max)
-const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/
 
 export async function POST(request) {
   const apiKey = process.env.RESEND_API_KEY
@@ -77,7 +80,7 @@ export async function POST(request) {
       reply_to: safeName + ' <' + safeEmail + '>',
       subject: '[Portfolio] ' + safeSubject,
       html,
-      text: 'Name: ' + safeName + '\nEmail: ' + safeEmail + '\nSubject: ' + safeSubject + '\n\n' + safeMessage,
+      text: 'Name: ' + safeName + '\\nEmail: ' + safeEmail + '\\nSubject: ' + safeSubject + '\\n\\n' + safeMessage,
     }),
   })
 
@@ -91,3 +94,17 @@ export async function POST(request) {
   console.log('Email sent:', data.id)
   return Response.json({ success: true, id: data.id })
 }
+`
+
+const dest = path.join(__dirname, 'app', 'api', 'contact', 'route.js')
+fs.writeFileSync(dest, content, 'utf8')
+
+// Verify no non-ASCII bytes
+const buf = fs.readFileSync(dest)
+for (let i = 0; i < buf.length; i++) {
+  if (buf[i] > 127) {
+    console.error('Non-ASCII byte at offset', i, ':', buf[i])
+    process.exit(1)
+  }
+}
+console.log('OK - file written, size:', buf.length, 'bytes, all ASCII')
