@@ -195,21 +195,18 @@ export async function POST(request) {
 
     return Response.json({ success: true, messageId: info.messageId })
   } catch (err) {
-    // Reset singleton so next request gets a fresh connection
-    resetTransporter()
-
     // Log full error server-side; return generic message to client
     console.error('SMTP error:', {
-      message:  err.message,
-      code:     err.code,
-      command:  err.command,
+      message: err.message,
+      code:    err.code,
+      command: err.command,
       response: err.response,
     })
 
     // Surface a helpful message for common SMTP errors
     let userMessage = 'Failed to send message. Please try again later.'
-    if (err.code === 'ESOCKET' || err.code === 'ECONNECTION' || err.code === 'ENETUNREACH' || err.code === 'ETIMEDOUT') {
-      userMessage = 'Could not reach the mail server. Please try again in a moment.'
+    if (err.code === 'ECONNECTION' || err.code === 'ETIMEDOUT') {
+      userMessage = 'Could not reach the mail server. Please try again.'
     } else if (err.responseCode === 535) {
       userMessage = 'Mail authentication error. Please contact me directly.'
     } else if (err.responseCode === 421 || err.responseCode === 450) {
