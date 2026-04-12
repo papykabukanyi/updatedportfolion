@@ -87,24 +87,13 @@ export default function Navbar() {
               {link.name}
             </a>
           ))}
-          <div className="flex items-center justify-between pt-2">
-            <a
-              href="/resume.pdf"
-              download="Papy_Kabukanyi_Resume.pdf"
-              className="flex items-center gap-2 text-cyan-400 font-semibold"
-            >
-              <FiDownload size={14} /> {t.nav.resume}
-            </a>
-            <button
-              onClick={() => setLang(lang === 'en' ? 'fr' : 'en')}
-              className="flex items-center gap-1 px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 text-xs font-mono font-bold text-slate-300"
-              aria-label="Toggle language"
-            >
-              <span className={lang === 'en' ? 'text-cyan-400' : 'text-slate-500'}>EN</span>
-              <span className="text-white/20">|</span>
-              <span className={lang === 'fr' ? 'text-cyan-400' : 'text-slate-500'}>FR</span>
-            </button>
-          </div>
+          <a
+            href="/resume.pdf"
+            download="Papy_Kabukanyi_Resume.pdf"
+            className="flex items-center gap-2 text-cyan-400 font-semibold"
+          >
+            <FiDownload size={14} /> Download Resume
+          </a>
         </div>
       )}
     </nav>

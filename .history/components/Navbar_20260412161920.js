@@ -44,23 +44,13 @@ export default function Navbar() {
               {link.name}
             </a>
           ))}
-          {/* Language toggle */}
-          <button
-            onClick={() => setLang(lang === 'en' ? 'fr' : 'en')}
-            className="flex items-center gap-1 px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 text-xs font-mono font-bold text-slate-300 hover:border-cyan-500/40 hover:text-cyan-400 transition-all duration-200"
-            aria-label="Toggle language"
-          >
-            <span className={lang === 'en' ? 'text-cyan-400' : 'text-slate-500'}>EN</span>
-            <span className="text-white/20">|</span>
-            <span className={lang === 'fr' ? 'text-cyan-400' : 'text-slate-500'}>FR</span>
-          </button>
           <a
             href="/resume.pdf"
             download="Papy_Kabukanyi_Resume.pdf"
             className="flex items-center gap-2 px-4 py-2 rounded-lg border border-cyan-500/30 bg-cyan-500/5 text-cyan-400 text-sm font-semibold hover:bg-cyan-500/15 hover:border-cyan-500/60 transition-all duration-200"
           >
             <FiDownload size={13} />
-            {t.nav.resume}
+            Resume
           </a>
         </div>
 
@@ -87,24 +77,13 @@ export default function Navbar() {
               {link.name}
             </a>
           ))}
-          <div className="flex items-center justify-between pt-2">
-            <a
-              href="/resume.pdf"
-              download="Papy_Kabukanyi_Resume.pdf"
-              className="flex items-center gap-2 text-cyan-400 font-semibold"
-            >
-              <FiDownload size={14} /> {t.nav.resume}
-            </a>
-            <button
-              onClick={() => setLang(lang === 'en' ? 'fr' : 'en')}
-              className="flex items-center gap-1 px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 text-xs font-mono font-bold text-slate-300"
-              aria-label="Toggle language"
-            >
-              <span className={lang === 'en' ? 'text-cyan-400' : 'text-slate-500'}>EN</span>
-              <span className="text-white/20">|</span>
-              <span className={lang === 'fr' ? 'text-cyan-400' : 'text-slate-500'}>FR</span>
-            </button>
-          </div>
+          <a
+            href="/resume.pdf"
+            download="Papy_Kabukanyi_Resume.pdf"
+            className="flex items-center gap-2 text-cyan-400 font-semibold"
+          >
+            <FiDownload size={14} /> Download Resume
+          </a>
         </div>
       )}
     </nav>
