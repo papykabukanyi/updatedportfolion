@@ -4,6 +4,9 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import CrowLogo from '@/components/CrowLogo'
 
+const CROW_URL = process.env.NEXT_PUBLIC_CROW_URL || 'https://crow.up.railway.app'
+const STORE_URL = process.env.NEXT_PUBLIC_STORE_URL || 'https://papys-store.up.railway.app'
+
 const TABS = ['Articles', 'Subscribers', 'Comments']
 
 export default function CrowAdminPage() {
@@ -115,7 +118,7 @@ export default function CrowAdminPage() {
         </div>
         <div className="flex items-center gap-4 text-sm">
           <Link href="/pkvault/store" className="text-amber-400 hover:text-amber-300">Papi's Store →</Link>
-          <Link href="/crow" className="text-gray-400 hover:text-white">View CROW</Link>
+          <a href={CROW_URL} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white">View CROW ↗</a>
           <button onClick={async () => { await fetch('/api/admin/login', { method: 'DELETE' }); router.push('/pkvault') }}
             className="text-gray-500 hover:text-white">Logout</button>
         </div>

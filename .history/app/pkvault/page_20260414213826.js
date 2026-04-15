@@ -22,7 +22,7 @@ export default function AdminLoginPage() {
       })
       const data = await res.json()
       if (!res.ok) throw new Error(data.error)
-      router.push('/pkvault/dashboard')
+      router.push('/pkvault/crow')
     } catch (err) {
       setError(err.message || 'Login failed')
       setLoading(false)

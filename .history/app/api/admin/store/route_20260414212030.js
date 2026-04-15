@@ -96,5 +96,3 @@ export async function DELETE(req) {
   await query(`DELETE FROM ${table} WHERE id = $1`, [id])
   return NextResponse.json({ ok: true })
 }
-
-
