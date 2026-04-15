@@ -44,15 +44,13 @@ export default function Navbar() {
               className={`h-full animate-loading-bar ${
                 loading === 'crow'
                   ? 'bg-gradient-to-r from-purple-500 via-purple-300 to-purple-500'
-                  : loading === 'store'
-                  ? 'bg-gradient-to-r from-amber-500 via-amber-300 to-amber-500'
-                  : 'bg-gradient-to-r from-gray-400 via-gray-200 to-gray-400'
+                  : 'bg-gradient-to-r from-amber-500 via-amber-300 to-amber-500'
               }`}
             />
           </div>
           <div
             className={`w-12 h-12 rounded-full border-4 border-white/10 animate-spin ${
-              loading === 'crow' ? 'border-t-purple-400' : loading === 'store' ? 'border-t-amber-400' : 'border-t-gray-400'
+              loading === 'crow' ? 'border-t-purple-400' : 'border-t-amber-400'
             }`}
           />
           <p className="text-slate-400 text-sm font-mono tracking-widest uppercase mt-6">

@@ -52,7 +52,7 @@ export default function Navbar() {
           </div>
           <div
             className={`w-12 h-12 rounded-full border-4 border-white/10 animate-spin ${
-              loading === 'crow' ? 'border-t-purple-400' : loading === 'store' ? 'border-t-amber-400' : 'border-t-gray-400'
+              loading === 'crow' ? 'border-t-purple-400' : 'border-t-amber-400'
             }`}
           />
           <p className="text-slate-400 text-sm font-mono tracking-widest uppercase mt-6">
