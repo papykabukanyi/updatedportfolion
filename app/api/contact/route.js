@@ -1,4 +1,5 @@
 // Contact form API - uses Resend HTTPS API (no SMTP, works on Railway)
+import { query } from '@/lib/db'
 
 const stripHtml = (str) => String(str).replace(/<[^>]*>/g, '').trim()
 const clamp = (str, max) => stripHtml(str).slice(0, max)
@@ -89,5 +90,9 @@ export async function POST(request) {
   }
 
   console.log('Email sent:', data.id)
+  query(
+    `INSERT INTO contact_messages (name, email, subject, message) VALUES ($1, $2, $3, $4)`,
+    [safeName, safeEmail, safeSubject, safeMessage]
+  ).catch(err => console.error('contact_messages insert error:', err))
   return Response.json({ success: true, id: data.id })
 }
