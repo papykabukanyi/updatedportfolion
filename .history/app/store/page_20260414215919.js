@@ -114,14 +114,7 @@ export default function StorePage() {
             <h1 className="text-3xl font-black tracking-tight">PAPI'S STORE</h1>
             <p className="text-amber-300 text-xs tracking-widest uppercase">Dripping Springs, Texas · Free Shipping</p>
           </div>
-          <div className="flex items-center gap-2">
-            <a href={CROW_URL} className="hidden sm:flex items-center gap-1 text-amber-200 hover:text-white text-xs font-semibold transition-colors">
-              🐦 CROW
-            </a>
-            <a href={ADMIN_URL} className="hidden sm:flex items-center gap-1 text-amber-300/60 hover:text-amber-200 text-xs transition-colors">
-              ⚙ Admin
-            </a>
-            <button onClick={() => setShowCheckout(!showCheckout)}
+          <button onClick={() => setShowCheckout(!showCheckout)}
             className="relative bg-amber-700 hover:bg-amber-600 text-white px-4 py-2 rounded-full text-sm font-bold transition-colors">
             🛒 Cart
             {cartItems.length > 0 && (
@@ -130,7 +123,6 @@ export default function StorePage() {
               </span>
             )}
           </button>
-          </div>
         </div>
       </header>
 

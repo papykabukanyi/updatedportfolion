@@ -130,7 +130,6 @@ export default function StorePage() {
               </span>
             )}
           </button>
-          </div>
         </div>
       </header>
 
