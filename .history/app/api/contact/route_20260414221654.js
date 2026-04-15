@@ -89,12 +89,6 @@ export async function POST(request) {
     return Response.json({ error: 'Failed to send message. Please try again.' }, { status: 500 })
   }
 
-  // Save to DB for admin inbox (non-blocking)
-  query(
-    `INSERT INTO contact_messages (name, email, subject, message) VALUES ($1, $2, $3, $4)`,
-    [safeName, safeEmail, safeSubject, safeMessage]
-  ).catch(err => console.error('contact_messages insert error:', err))
-
   console.log('Email sent:', data.id)
   return Response.json({ success: true, id: data.id })
 }
