@@ -5,7 +5,6 @@ import { useLang } from '@/lib/LangContext'
 
 const CROW_URL = process.env.NEXT_PUBLIC_CROW_URL || '/crow'
 const STORE_URL = process.env.NEXT_PUBLIC_PAPYS_STORE_URL || '/store'
-const ADMIN_URL = process.env.NEXT_PUBLIC_ADMIN_URL || 'https://pk-admin.up.railway.app'
 
 const navIds = ['about', 'experience', 'skills', 'certifications', 'github', 'contact']
 
@@ -52,11 +51,11 @@ export default function Navbar() {
           </div>
           <div
             className={`w-12 h-12 rounded-full border-4 border-white/10 animate-spin ${
-              loading === 'crow' ? 'border-t-purple-400' : loading === 'store' ? 'border-t-amber-400' : 'border-t-gray-400'
+              loading === 'crow' ? 'border-t-purple-400' : 'border-t-amber-400'
             }`}
           />
           <p className="text-slate-400 text-sm font-mono tracking-widest uppercase mt-6">
-            {loading === 'crow' ? 'Loading CROW News…' : loading === 'store' ? "Loading Papi's Store…" : 'Loading PK Vault…'}
+            {loading === 'crow' ? 'Loading CROW News…' : "Loading Papi's Store…"}
           </p>
         </div>
       )}
@@ -95,12 +94,6 @@ export default function Navbar() {
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-amber-500/30 bg-amber-500/5 text-amber-400 text-xs font-bold hover:bg-amber-500/15 hover:border-amber-500/60 transition-all"
             >
               <FiExternalLink size={11} /> PAPI&apos;S STORE
-            </button>
-            <button
-              onClick={() => navigate('admin', ADMIN_URL)}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-gray-600/40 bg-gray-800/30 text-gray-400 text-xs font-bold hover:bg-gray-700/40 hover:border-gray-500/60 transition-all"
-            >
-              <FiExternalLink size={11} /> ADMIN
             </button>
             <span className="w-px h-4 bg-white/10" />
             <select
@@ -158,12 +151,7 @@ export default function Navbar() {
               >
                 <FiExternalLink size={11} /> PAPI&apos;S STORE
               </button>
-              <button
-                onClick={() => navigate('admin', ADMIN_URL)}
-                className="flex items-center gap-1.5 px-3 py-2 rounded-lg border border-gray-600/40 bg-gray-800/30 text-gray-400 text-xs font-bold hover:bg-gray-700/40 transition-all"
-              >
-                <FiExternalLink size={11} /> ADMIN
-              </button>
+
             </div>
             <div className="flex items-center justify-between pt-1">
               <a
