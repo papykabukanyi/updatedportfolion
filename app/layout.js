@@ -408,6 +408,19 @@ export default function RootLayout({ children }) {
             __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GC9CLZ5PT4',{send_page_view:true});`,
           }}
         />
+        {/* ── Google Analytics GA4 — CROW News (G-RVLWCSLD9P) ── */}
+        <Script
+          id="crow-ga4-src"
+          src="https://www.googletagmanager.com/gtag/js?id=G-RVLWCSLD9P"
+          strategy="afterInteractive"
+        />
+        <Script
+          id="crow-ga4-config"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-RVLWCSLD9P',{send_page_view:true});`,
+          }}
+        />
       </body>
     </html>
   )
