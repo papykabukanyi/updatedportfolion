@@ -254,9 +254,6 @@ function PortfolioSection({ stats, onStatsChange }) {
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-6">
         <Stat label="Total Messages" value={stats.messages} icon={icons.mail} color="cyan" />
         <Stat label="Unread" value={stats.unread} icon={icons.eye} color="cyan" />
-        <Stat label="Resume Views" value={stats.resumeViews} icon={icons.eye} color="violet" />
-        <Stat label="Views Today" value={stats.resumeViewsToday} icon={icons.eye} color="violet" />
-        <Stat label="Views This Week" value={stats.resumeViewsWeek} icon={icons.eye} color="violet" />
       </div>
 
       <div className="bg-[#080b14] border border-white/5 rounded-2xl overflow-hidden">
