@@ -43,16 +43,16 @@ const ACCENT = {
 
 // ─── Input helper ─────────────────────────────────────────────────────────────
 function Field({ label, value, onChange, type = 'text', rows, options, accent = 'purple', required }) {
-  const cls = `w-full bg-[#0d1020] border border-white/20 rounded-xl px-4 py-3 text-white text-sm placeholder-gray-600 focus:outline-none focus:border-purple-500/60 focus:bg-[#111428] transition-all`
+  const cls = `w-full bg-white/[0.04] border border-white/10 rounded-xl px-3 py-2.5 text-white text-sm focus:outline-none ${ACCENT[accent].ring} transition-all`
   return (
     <div>
-      <label className="block text-xs text-gray-300 uppercase tracking-widest mb-2 font-bold">{label}{required && <span className="text-red-400 ml-0.5">*</span>}</label>
+      <label className="block text-[10px] text-gray-400 uppercase tracking-widest mb-1.5 font-semibold">{label}{required && <span className="text-red-400 ml-0.5">*</span>}</label>
       {options ? (
-        <select value={value} onChange={e => onChange(e.target.value)} className={cls + ' cursor-pointer'} style={{ colorScheme: 'dark' }}>
-          {options.map(o => <option key={typeof o === 'string' ? o : o.v} value={typeof o === 'string' ? o : o.v} style={{ background: '#0d1020', color: '#fff' }}>{typeof o === 'string' ? o : o.l}</option>)}
+        <select value={value} onChange={e => onChange(e.target.value)} className={cls}>
+          {options.map(o => <option key={typeof o === 'string' ? o : o.v} value={typeof o === 'string' ? o : o.v}>{typeof o === 'string' ? o : o.l}</option>)}
         </select>
       ) : rows ? (
-        <textarea rows={rows} value={value} onChange={e => onChange(e.target.value)} className={cls + ' font-mono resize-y leading-relaxed'} required={required} />
+        <textarea rows={rows} value={value} onChange={e => onChange(e.target.value)} className={cls + ' font-mono resize-none'} required={required} />
       ) : (
         <input type={type} value={value} onChange={e => onChange(e.target.value)} className={cls} required={required} />
       )}
@@ -404,55 +404,30 @@ function CrowSection() {
   // Article editor
   if (editing) {
     return (
-      <div className="max-w-3xl">
+      <div className="max-w-2xl">
         <button onClick={() => setEditing(null)} className="flex items-center gap-1.5 text-gray-500 hover:text-white text-sm mb-5 transition-colors min-h-0">
-          <Icon d="M10 19l-7-7m0 0l7-7m-7 7h18" size={15} /> Back to Articles
+          <Icon d="M10 19l-7-7m0 0l7-7m-7 7h18" size={15} /> Back
         </button>
-        <div className="bg-[#080b14] border border-purple-500/20 rounded-2xl p-6">
-          <h2 className="text-white font-black text-lg mb-6 flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-purple-400 inline-block"></span>
-            {editing === 'new' ? 'New Article' : 'Edit Article'}
-          </h2>
-          <form onSubmit={saveArticle} className="space-y-5">
-            {/* Title — full width, large */}
-            <Field label="Title *" value={form.title} onChange={f('title')} accent="purple" required />
-
-            {/* Row: Slug + Status */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              <Field label="Slug (URL path)" value={form.slug} onChange={f('slug')} accent="purple" required />
-              <Field label="Status" value={form.status} onChange={f('status')} options={['draft', 'published']} accent="purple" />
-            </div>
-
-            {/* Row: Category + City */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+        <div className={`bg-[#080b14] border border-purple-500/15 rounded-2xl p-6`}>
+          <h2 className="text-white font-black text-lg mb-5">{editing === 'new' ? '+ New Article' : 'Edit Article'}</h2>
+          <form onSubmit={saveArticle} className="space-y-4">
+            <div className="grid grid-cols-2 gap-4">
+              <div className="col-span-2"><Field label="Title" value={form.title} onChange={f('title')} accent="purple" required /></div>
+              <Field label="Slug (URL)" value={form.slug} onChange={f('slug')} accent="purple" required />
+              <Field label="Status" value={form.status} onChange={f('status')} options={['draft','published']} accent="purple" />
               <Field label="Category" value={form.category} onChange={f('category')} options={CATEGORIES} accent="purple" />
               <Field label="City" value={form.city} onChange={f('city')} options={CITIES} accent="purple" />
-            </div>
-
-            {/* Summary */}
-            <Field label="Summary (shown in article cards)" value={form.summary} onChange={f('summary')} rows={3} accent="purple" />
-
-            {/* Row: Image URL + Credit */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div className="col-span-2"><Field label="Summary" value={form.summary} onChange={f('summary')} rows={2} accent="purple" /></div>
               <Field label="Image URL" value={form.image_url} onChange={f('image_url')} accent="purple" />
-              <Field label="Image Source / Credit" value={form.image_source} onChange={f('image_source')} accent="purple" />
+              <Field label="Image Source Credit" value={form.image_source} onChange={f('image_source')} accent="purple" />
+              <div className="col-span-2"><Field label="Content" value={form.content} onChange={f('content')} rows={14} accent="purple" required /></div>
             </div>
-
-            {/* Content — tall */}
-            <Field label="Article Content *" value={form.content} onChange={f('content')} rows={18} accent="purple" required />
-
-            {msg && (
-              <p className={`text-sm font-semibold px-4 py-2.5 rounded-xl ${msg === 'Saved!' ? 'bg-green-500/10 text-green-400 border border-green-500/20' : 'bg-red-500/10 text-red-400 border border-red-500/20'}`}>
-                {msg}
-              </p>
-            )}
+            {msg && <p className={msg === 'Saved!' ? 'text-green-400 text-sm' : 'text-red-400 text-sm'}>{msg}</p>}
             <div className="flex gap-3 pt-1">
-              <button type="submit" disabled={saving} className="bg-purple-700 hover:bg-purple-600 disabled:opacity-50 text-white font-bold px-8 py-3 rounded-xl text-sm transition-colors min-h-0">
+              <button type="submit" disabled={saving} className="bg-purple-700 hover:bg-purple-600 disabled:opacity-50 text-white font-bold px-6 py-2.5 rounded-xl text-sm transition-colors min-h-0">
                 {saving ? 'Saving…' : editing === 'new' ? 'Publish Article' : 'Save Changes'}
               </button>
-              <button type="button" onClick={() => setEditing(null)} className="bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white px-6 py-3 rounded-xl text-sm transition-colors min-h-0">
-                Cancel
-              </button>
+              <button type="button" onClick={() => setEditing(null)} className="bg-white/5 text-gray-400 hover:text-white px-6 py-2.5 rounded-xl text-sm transition-colors min-h-0">Cancel</button>
             </div>
           </form>
         </div>
