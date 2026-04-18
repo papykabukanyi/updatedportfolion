@@ -408,6 +408,19 @@ export default function RootLayout({ children }) {
             __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GC9CLZ5PT4',{send_page_view:true});`,
           }}
         />
+        {/* ── Google Analytics GA4 — hire-papy (G-PSL7H6QDRM) ── */}
+        <Script
+          id="hire-papy-ga4-src"
+          src="https://www.googletagmanager.com/gtag/js?id=G-PSL7H6QDRM"
+          strategy="afterInteractive"
+        />
+        <Script
+          id="hire-papy-ga4-config"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-PSL7H6QDRM',{send_page_view:true});`,
+          }}
+        />
       </body>
     </html>
   )
