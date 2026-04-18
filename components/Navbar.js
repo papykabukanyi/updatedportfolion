@@ -27,6 +27,15 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  // Clear loading overlay when user navigates back (bfcache restore)
+  useEffect(() => {
+    const handlePageShow = (e) => {
+      if (e.persisted) setLoading(null)
+    }
+    window.addEventListener('pageshow', handlePageShow)
+    return () => window.removeEventListener('pageshow', handlePageShow)
+  }, [])
+
   function navigate(key, url) {
     setLoading(key)
     setMobileOpen(false)
