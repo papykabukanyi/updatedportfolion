@@ -226,7 +226,7 @@ export default function ConstructionPage() {
           </h1>
           <p className="text-gray-400 text-lg sm:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
             Austin&apos;s trusted licensed contractor for residential &amp; commercial demolition, site clearing,
-            interior demo, and concrete work. <strong className="text-white">Serving Austin, all of Texas, and cities up to 1,000 miles away.</strong>
+            interior demo, and concrete work. <strong className="text-white">Serving 50+ miles across Central Texas.</strong>
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
             <button onClick={openForm} className="w-full sm:w-auto bg-orange-500 hover:bg-orange-400 text-white font-black px-8 py-4 rounded-2xl text-lg transition-all hover:scale-105 shadow-lg shadow-orange-500/20">
@@ -327,12 +327,12 @@ export default function ConstructionPage() {
           <div className="text-center mb-12">
             <p className="text-orange-400 text-xs font-bold tracking-widest uppercase mb-3">Coverage</p>
             <h2 className="text-4xl sm:text-5xl font-black text-white mb-3">SERVICE AREAS</h2>
-            <p className="text-gray-500">Based in Austin, TX — serving all of Texas and major cities across 10 states within 1,000 miles.</p>
+            <p className="text-gray-500">We cover Austin and 50+ miles in every direction.</p>
           </div>
           <div className="flex flex-wrap justify-center gap-3">
             {AREAS.map(a => (
               <span key={a} className="flex items-center gap-2 bg-white/[0.04] border border-white/[0.06] hover:border-orange-500/30 hover:text-orange-400 rounded-full px-4 py-2 text-sm text-gray-300 transition-colors cursor-default">
-                <span className="w-1.5 h-1.5 rounded-full bg-orange-400" />{a}
+                <span className="w-1.5 h-1.5 rounded-full bg-orange-400" />{a}, TX
               </span>
             ))}
             <span className="flex items-center gap-2 bg-orange-500/10 border border-orange-500/20 rounded-full px-4 py-2 text-sm text-orange-400 font-semibold">+ More — just ask!</span>
@@ -365,7 +365,7 @@ export default function ConstructionPage() {
             <span className="font-bold text-gray-400">Papy Construction &amp; Demolition</span>
             <span>· Austin, TX</span>
           </div>
-          <p>Licensed &amp; Insured · Based in Austin TX · Serving 1,000-Mile Radius</p>
+          <p>Licensed &amp; Insured · Serving Greater Austin Area</p>
           <p>© {new Date().getFullYear()} All rights reserved</p>
         </div>
       </footer>
