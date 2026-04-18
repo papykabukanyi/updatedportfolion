@@ -33,14 +33,6 @@ export default function ResumePage() {
   const { lang, setLang, t } = useLang()
   const r = t.resume
 
-  useEffect(() => {
-    fetch('/api/resume/track', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ event: 'view' }),
-    }).catch(() => {})
-  }, [])
-
   return (
     <div style={{ minHeight: '100vh', background: '#f8fafc', fontFamily: 'Arial, sans-serif' }}>
 
