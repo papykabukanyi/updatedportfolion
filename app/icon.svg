@@ -1,40 +1,23 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
   <defs>
-    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#818cf8">
-        <animate attributeName="stop-color"
-          values="#818cf8;#c084fc;#38bdf8;#818cf8"
-          dur="3s" repeatCount="indefinite"/>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1a0d00"/>
+      <stop offset="100%" stop-color="#0a0500"/>
+    </linearGradient>
+    <linearGradient id="amber" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24">
+        <animate attributeName="stop-color" values="#fbbf24;#f59e0b;#d97706;#f59e0b;#fbbf24" dur="4s" repeatCount="indefinite"/>
       </stop>
-      <stop offset="100%" stop-color="#c084fc">
-        <animate attributeName="stop-color"
-          values="#c084fc;#38bdf8;#818cf8;#c084fc"
-          dur="3s" repeatCount="indefinite"/>
+      <stop offset="100%" stop-color="#d97706">
+        <animate attributeName="stop-color" values="#d97706;#b45309;#f59e0b;#b45309;#d97706" dur="4s" repeatCount="indefinite"/>
       </stop>
     </linearGradient>
-    <filter id="glow">
-      <feGaussianBlur stdDeviation="1.2" result="blur"/>
-      <feMerge>
-        <feMergeNode in="blur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
   </defs>
-
-  <!-- Dark background tile -->
-  <rect width="32" height="32" rx="6" fill="#050508"/>
-
-  <!-- Subtle inner border -->
-  <rect x="1" y="1" width="30" height="30" rx="5.5"
-    fill="none" stroke="rgba(129,140,248,0.18)" stroke-width="1"/>
-
-  <!-- Animated </> glyph -->
-  <text
-    x="16" y="22"
-    font-family="'Courier New', Courier, monospace"
-    font-size="15"
-    font-weight="700"
-    text-anchor="middle"
-    fill="url(#g)"
-    filter="url(#glow)">&lt;/&gt;</text>
+  <rect width="32" height="32" rx="7" fill="url(#bg)"/>
+  <!-- Shopping bag body -->
+  <path d="M9 13h14l-1.5 11H10.5z" fill="none" stroke="url(#amber)" stroke-width="1.6" stroke-linejoin="round"/>
+  <!-- Bag handles -->
+  <path d="M12 13c0-3 8-3 8 0" fill="none" stroke="url(#amber)" stroke-width="1.6" stroke-linecap="round"/>
+  <!-- P letter on bag -->
+  <text x="13.5" y="22.5" font-family="Georgia,serif" font-size="7" font-weight="700" fill="url(#amber)">P</text>
 </svg>
