@@ -5,7 +5,7 @@ import { useLang } from '@/lib/LangContext'
 
 const CROW_URL = process.env.NEXT_PUBLIC_CROW_URL || '/crow'
 const STORE_URL = process.env.NEXT_PUBLIC_PAPYS_STORE_URL || '/store'
-const CONSTRUCTION_URL = process.env.NEXT_PUBLIC_CONSTRUCTION_URL || 'https://papy-construction.up.railway.app'
+const CONSTRUCTION_URL = process.env.NEXT_PUBLIC_CONSTRUCTION_URL || 'https://papy-construction-demolition.up.railway.app'
 
 const navIds = ['about', 'experience', 'skills', 'certifications', 'github', 'contact']
 
