@@ -1,40 +1,29 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
   <defs>
-    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#818cf8">
-        <animate attributeName="stop-color"
-          values="#818cf8;#c084fc;#38bdf8;#818cf8"
-          dur="3s" repeatCount="indefinite"/>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1a0c00"/>
+      <stop offset="100%" stop-color="#0a0600"/>
+    </linearGradient>
+    <linearGradient id="ore" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fb923c">
+        <animate attributeName="stop-color" values="#fb923c;#f97316;#ea580c;#f97316;#fb923c" dur="3.5s" repeatCount="indefinite"/>
       </stop>
-      <stop offset="100%" stop-color="#c084fc">
-        <animate attributeName="stop-color"
-          values="#c084fc;#38bdf8;#818cf8;#c084fc"
-          dur="3s" repeatCount="indefinite"/>
+      <stop offset="100%" stop-color="#ea580c">
+        <animate attributeName="stop-color" values="#ea580c;#c2410c;#f97316;#c2410c;#ea580c" dur="3.5s" repeatCount="indefinite"/>
       </stop>
     </linearGradient>
-    <filter id="glow">
-      <feGaussianBlur stdDeviation="1.2" result="blur"/>
-      <feMerge>
-        <feMergeNode in="blur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
   </defs>
-
-  <!-- Dark background tile -->
-  <rect width="32" height="32" rx="6" fill="#050508"/>
-
-  <!-- Subtle inner border -->
-  <rect x="1" y="1" width="30" height="30" rx="5.5"
-    fill="none" stroke="rgba(129,140,248,0.18)" stroke-width="1"/>
-
-  <!-- Animated </> glyph -->
-  <text
-    x="16" y="22"
-    font-family="'Courier New', Courier, monospace"
-    font-size="15"
-    font-weight="700"
-    text-anchor="middle"
-    fill="url(#g)"
-    filter="url(#glow)">&lt;/&gt;</text>
+  <rect width="32" height="32" rx="7" fill="url(#bg)"/>
+  <!-- Tower arm (horizontal boom) -->
+  <line x1="5" y1="9" x2="27" y2="9" stroke="url(#ore)" stroke-width="2" stroke-linecap="round"/>
+  <!-- Tower mast (vertical) -->
+  <line x1="10" y1="9" x2="10" y2="26" stroke="url(#ore)" stroke-width="2" stroke-linecap="round"/>
+  <!-- Cable from boom tip down -->
+  <line x1="24" y1="9" x2="24" y2="19" stroke="url(#ore)" stroke-width="1.2" stroke-linecap="round" stroke-dasharray="1.5 1.5"/>
+  <!-- Hook -->
+  <path d="M22 19 Q24 22 26 19" fill="none" stroke="url(#ore)" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Counter-weight triangle -->
+  <polygon points="5,9 8,14 2,14" fill="url(#ore)" opacity="0.7"/>
+  <!-- Base platform -->
+  <rect x="7" y="26" width="6" height="2" rx="1" fill="url(#ore)"/>
 </svg>

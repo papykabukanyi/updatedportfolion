@@ -1,5 +1,6 @@
 ﻿import { Inter, Oswald } from 'next/font/google'
 import './globals.css'
+import { LangProvider } from '@/lib/LangContext'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 const oswald = Oswald({ subsets: ['latin'], variable: '--font-oswald', weight: ['400', '500', '600', '700'] })
@@ -360,7 +361,7 @@ export default function RootLayout({ children }) {
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </head>
       <body className="bg-[#0a0c10] text-white antialiased font-sans">
-        {children}
+        <LangProvider>{children}</LangProvider>
       </body>
     </html>
   )

@@ -1,5 +1,6 @@
 'use client'
 import { useState, useRef } from 'react'
+import { useLang } from '@/lib/LangContext'
 
 // ── Data ───────────────────────────────────────────────────────────────────────
 const SERVICES = [
@@ -146,6 +147,8 @@ const BLANK = { services: [], scope: '', size: '', timeline: '', budget: '', nam
 
 // ── Component ──────────────────────────────────────────────────────────────────
 export default function ConstructionPage() {
+  const { lang, setLang, t } = useLang()
+  const c = t?.construction || {}
   const [open, setOpen] = useState(false)
   const [step, setStep] = useState(0)
   const [form, setForm] = useState(BLANK)
@@ -200,12 +203,24 @@ export default function ConstructionPage() {
             </div>
           </div>
           <div className="hidden sm:flex items-center gap-6">
-            <a href="#services" className="text-gray-400 hover:text-white text-sm transition-colors">Services</a>
-            <a href="#about" className="text-gray-400 hover:text-white text-sm transition-colors">About</a>
-            <a href="#areas" className="text-gray-400 hover:text-white text-sm transition-colors">Areas</a>
+            <a href="#services" className="text-gray-400 hover:text-white text-sm transition-colors">{c.nav?.services || 'Services'}</a>
+            <a href="#about" className="text-gray-400 hover:text-white text-sm transition-colors">{c.nav?.about || 'About'}</a>
+            <a href="#areas" className="text-gray-400 hover:text-white text-sm transition-colors">{c.nav?.areas || 'Areas'}</a>
+            <select
+              value={lang}
+              onChange={e => setLang(e.target.value)}
+              className="bg-transparent text-gray-400 hover:text-white text-sm border border-white/10 rounded-lg px-2 py-1 cursor-pointer focus:outline-none focus:border-orange-500/50 transition-colors"
+              aria-label="Language"
+            >
+              <option value="en">EN</option>
+              <option value="fr">FR</option>
+              <option value="es">ES</option>
+              <option value="ru">RU</option>
+              <option value="sw">SW</option>
+            </select>
           </div>
           <button onClick={openForm} className="bg-orange-500 hover:bg-orange-400 text-white font-bold px-5 py-2.5 rounded-xl text-sm transition-all hover:scale-105">
-            Free Estimate
+            {c.nav?.estimate || 'Free Estimate'}
           </button>
         </div>
       </nav>
@@ -217,7 +232,7 @@ export default function ConstructionPage() {
         <div className="relative max-w-5xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 bg-orange-500/10 border border-orange-500/20 rounded-full px-4 py-1.5 text-orange-400 text-xs font-bold tracking-widest uppercase mb-8">
             <span className="w-1.5 h-1.5 rounded-full bg-orange-400 animate-pulse" />
-            Licensed &amp; Insured · Austin, TX
+            {c.hero?.badge || 'Licensed & Insured · Austin, TX'}
           </div>
           <h1 className="text-5xl sm:text-6xl lg:text-8xl font-black leading-none tracking-tight mb-6">
             <span className="block text-white">DEMOLITION.</span>
@@ -230,7 +245,7 @@ export default function ConstructionPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
             <button onClick={openForm} className="w-full sm:w-auto bg-orange-500 hover:bg-orange-400 text-white font-black px-8 py-4 rounded-2xl text-lg transition-all hover:scale-105 shadow-lg shadow-orange-500/20">
-              GET A FREE ESTIMATE →
+              {c.hero?.cta || 'GET A FREE ESTIMATE'} →
             </button>
             <a href="tel:+15128675309" className="w-full sm:w-auto flex items-center justify-center gap-2 border border-white/15 hover:border-white/30 bg-white/5 hover:bg-white/8 text-white font-bold px-8 py-4 rounded-2xl text-lg transition-all">
               📞 (512) 867-5309
@@ -251,9 +266,9 @@ export default function ConstructionPage() {
       <section id="services" className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-14">
-            <p className="text-orange-400 text-xs font-bold tracking-widest uppercase mb-3">What We Do</p>
-            <h2 className="text-4xl sm:text-5xl font-black text-white">FULL-SERVICE CONTRACTOR</h2>
-            <p className="text-gray-500 mt-3 max-w-xl mx-auto">From a single room to a full city block — we handle every phase.</p>
+            <p className="text-orange-400 text-xs font-bold tracking-widest uppercase mb-3">{c.services?.label || 'What We Do'}</p>
+            <h2 className="text-4xl sm:text-5xl font-black text-white">{c.services?.heading || 'FULL-SERVICE CONTRACTOR'}</h2>
+            <p className="text-gray-500 mt-3 max-w-xl mx-auto">{c.services?.sub || 'From a single room to a full city block — we handle every phase.'}</p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {SERVICES.map(sv => (
@@ -277,7 +292,7 @@ export default function ConstructionPage() {
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-14 items-center">
             <div>
-              <p className="text-orange-400 text-xs font-bold tracking-widest uppercase mb-3">Why Choose Us</p>
+              <p className="text-orange-400 text-xs font-bold tracking-widest uppercase mb-3">{c.about?.label || 'Why Choose Us'}</p>
               <h2 className="text-4xl sm:text-5xl font-black text-white mb-6 leading-tight">
                 WE SHOW UP.<br/>WE WORK HARD.<br/>WE CLEAN UP.
               </h2>
@@ -298,7 +313,7 @@ export default function ConstructionPage() {
                 ].map(l => <li key={l} className="text-gray-300 text-sm">{l}</li>)}
               </ul>
               <button onClick={openForm} className="bg-orange-500 hover:bg-orange-400 text-white font-black px-8 py-4 rounded-2xl text-lg transition-all hover:scale-105">
-                Request a Free Quote →
+                {c.about?.cta || 'Request a Free Quote'} →
               </button>
             </div>
             <div className="grid grid-cols-2 gap-4">
@@ -325,9 +340,9 @@ export default function ConstructionPage() {
       <section id="areas" className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
-            <p className="text-orange-400 text-xs font-bold tracking-widest uppercase mb-3">Coverage</p>
-            <h2 className="text-4xl sm:text-5xl font-black text-white mb-3">SERVICE AREAS</h2>
-            <p className="text-gray-500">Based in Austin, TX — serving all of Texas and major cities across 10 states within 1,000 miles.</p>
+            <p className="text-orange-400 text-xs font-bold tracking-widest uppercase mb-3">{c.areas?.label || 'Coverage'}</p>
+            <h2 className="text-4xl sm:text-5xl font-black text-white mb-3">{c.areas?.heading || 'SERVICE AREAS'}</h2>
+            <p className="text-gray-500">{c.areas?.sub || 'Based in Austin, TX — serving all of Texas and major cities across 10 states within 1,000 miles.'}</p>
           </div>
           <div className="flex flex-wrap justify-center gap-3">
             {AREAS.map(a => (
@@ -335,7 +350,7 @@ export default function ConstructionPage() {
                 <span className="w-1.5 h-1.5 rounded-full bg-orange-400" />{a}
               </span>
             ))}
-            <span className="flex items-center gap-2 bg-orange-500/10 border border-orange-500/20 rounded-full px-4 py-2 text-sm text-orange-400 font-semibold">+ More — just ask!</span>
+            <span className="flex items-center gap-2 bg-orange-500/10 border border-orange-500/20 rounded-full px-4 py-2 text-sm text-orange-400 font-semibold">{c.areas?.more || '+ More — just ask!'}</span>
           </div>
         </div>
       </section>
@@ -344,11 +359,11 @@ export default function ConstructionPage() {
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-orange-500 relative overflow-hidden">
         <div className="absolute inset-0 opacity-[0.08]" style={{ backgroundImage: 'repeating-linear-gradient(45deg,#000 0,#000 1px,transparent 0,transparent 50%)', backgroundSize: '10px 10px' }} />
         <div className="relative max-w-3xl mx-auto text-center">
-          <h2 className="text-4xl sm:text-5xl font-black text-white mb-4">READY TO START?</h2>
-          <p className="text-orange-100 mb-8 text-lg">Get your free estimate today. We respond within 2 hours.</p>
+          <h2 className="text-4xl sm:text-5xl font-black text-white mb-4">{c.cta?.heading || 'READY TO START?'}</h2>
+          <p className="text-orange-100 mb-8 text-lg">{c.cta?.sub || 'Get your free estimate today. We respond within 2 hours.'}</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button onClick={openForm} className="bg-white text-orange-600 font-black px-8 py-4 rounded-2xl text-lg hover:bg-orange-50 transition-colors">
-              GET FREE ESTIMATE →
+              {c.cta?.btn || 'GET FREE ESTIMATE'} →
             </button>
             <a href="tel:+15128675309" className="border-2 border-white/40 hover:border-white text-white font-bold px-8 py-4 rounded-2xl text-lg transition-colors flex items-center justify-center gap-2">
               📞 (512) 867-5309
@@ -380,8 +395,8 @@ export default function ConstructionPage() {
             {/* Modal header */}
             <div className="px-6 pt-6 pb-4 border-b border-white/5 flex items-center justify-between shrink-0">
               <div>
-                <p className="text-orange-400 text-xs font-bold tracking-widest uppercase">Free Estimate</p>
-                <p className="text-white font-black text-lg">PAPY C&amp;D · AUSTIN TX</p>
+                <p className="text-orange-400 text-xs font-bold tracking-widest uppercase">{c.modal?.label || 'Free Estimate'}</p>
+                <p className="text-white font-black text-lg">{c.modal?.title || 'PAPY C&D · AUSTIN TX'}</p>
               </div>
               <button onClick={() => setOpen(false)} className="text-gray-500 hover:text-white w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white/5 text-xl transition-all">✕</button>
             </div>
@@ -389,19 +404,19 @@ export default function ConstructionPage() {
             {done ? (
               <div className="px-6 py-12 text-center">
                 <div className="text-6xl mb-4">🎉</div>
-                <h3 className="text-2xl font-black text-white mb-2">YOU&apos;RE ALL SET!</h3>
-                <p className="text-gray-400 mb-2">Thanks, <strong className="text-white">{form.name}</strong>! We got your request.</p>
+                <h3 className="text-2xl font-black text-white mb-2">{c.modal?.done || "YOU'RE ALL SET!"}</h3>
+                <p className="text-gray-400 mb-2">{c.modal?.thanks || 'Thanks'}, <strong className="text-white">{form.name}</strong>! We got your request.</p>
                 <p className="text-gray-500 text-sm mb-8">
-                  We&apos;ll reach out to <strong className="text-orange-400">{form.phone}</strong> within 2 hours (Mon–Sat 7am–6pm).
+                  {c.modal?.contact || "We'll reach out to"} <strong className="text-orange-400">{form.phone}</strong> {c.modal?.hours || 'within 2 hours (Mon–Sat 7am–6pm).'}
                 </p>
-                <button onClick={() => setOpen(false)} className="bg-orange-500 hover:bg-orange-400 text-white font-bold px-8 py-3 rounded-xl transition-colors">Close</button>
+                <button onClick={() => setOpen(false)} className="bg-orange-500 hover:bg-orange-400 text-white font-bold px-8 py-3 rounded-xl transition-colors">{c.modal?.close || 'Close'}</button>
               </div>
             ) : (
               <div className="px-6 py-6">
                 {/* Progress */}
                 <div className="mb-6">
                   <div className="flex justify-between text-xs text-gray-500 mb-2">
-                    <span>Step {step + 1} of {STEPS.length}</span>
+                    <span>{c.modal?.step || 'Step'} {step + 1} {c.modal?.of || 'of'} {STEPS.length}</span>
                     <span>{pct}%</span>
                   </div>
                   <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
