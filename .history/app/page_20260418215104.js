@@ -1,0 +1,578 @@
+﻿'use client'
+import { useState, useEffect } from 'react'
+import { useLang } from '@/lib/LangContext'
+
+// ── Data ───────────────────────────────────────────────────────────────────────
+const SERVICES = [
+  { num: '01', title: 'Residential Demo', desc: 'Full house teardowns, partial demo, and structure removal for homes of any size.', tags: ['House Teardown', 'Partial Demo', 'Foundation'] },
+  { num: '02', title: 'Commercial Demo', desc: 'Safe, code-compliant demolition for retail, offices, warehouses, and industrial sites.', tags: ['Retail', 'Office', 'Warehouse'] },
+  { num: '03', title: 'Interior Demo', desc: 'Selective interior removal — walls, ceilings, flooring, and fixtures without structural damage.', tags: ['Walls', 'Ceilings', 'Flooring'] },
+  { num: '04', title: 'Site Clearing & Grading', desc: 'Full land clearing, grubbing, and grading to prep your site before new construction.', tags: ['Land Clearing', 'Grading', 'Vegetation'] },
+  { num: '05', title: 'Concrete Breaking', desc: 'Driveways, slabs, sidewalks, patios, and foundations broken up and hauled away.', tags: ['Driveway', 'Slab', 'Patio'] },
+  { num: '06', title: 'Debris Removal', desc: 'Full-service cleanup and hauling. We leave your site clean and ready for the next phase.', tags: ['Junk Removal', 'Haul Away', 'Site Cleanup'] },
+]
+
+const STATS = [
+  { value: '500+', label: 'Projects Done' },
+  { value: '15+', label: 'Years Experience' },
+  { value: '1,000mi', label: 'Service Radius' },
+  { value: '100%', label: 'Licensed & Insured' },
+]
+
+const STATES = ['TX', 'OK', 'LA', 'AR', 'NM', 'AZ', 'CO', 'KS', 'MO', 'TN', 'MS', 'AL', 'FL', 'GA', 'NE']
+
+const CITIES = [
+  'Austin', 'Dallas', 'Houston', 'San Antonio', 'Fort Worth',
+  'Oklahoma City', 'Tulsa', 'Shreveport', 'New Orleans', 'Albuquerque',
+  'Phoenix', 'Denver', 'Atlanta', 'Nashville', 'Memphis',
+  'Waco', 'Round Rock', 'Cedar Park', 'Kyle', 'Temple',
+  'Corpus Christi', 'Lubbock', 'Amarillo', 'El Paso', 'Midland',
+  'College Station', 'Tyler', 'Beaumont', 'Wichita Falls', 'Laredo',
+]
+
+const STEPS = [
+  {
+    id: 'services', question: 'What type of work do you need?',
+    subtitle: 'Select all that apply.',
+    type: 'multi',
+    options: [
+      { label: 'Demolition', icon: '💥', desc: 'Tear down or remove structures' },
+      { label: 'Construction / Renovation', icon: '🏗️', desc: 'Build new or renovate' },
+      { label: 'Site Clearing', icon: '🌿', desc: 'Clear land for development' },
+      { label: 'Concrete Work', icon: '⛏️', desc: 'Break up slabs, driveways' },
+      { label: 'Debris Removal', icon: '🚛', desc: 'Haul away waste and materials' },
+    ],
+  },
+  {
+    id: 'scope', question: 'Residential or commercial?',
+    subtitle: 'Helps us send the right crew and equipment.',
+    type: 'single',
+    options: [
+      { label: 'Residential', icon: '🏠', desc: 'Home or private property' },
+      { label: 'Commercial', icon: '🏢', desc: 'Business, office, or industrial' },
+      { label: 'Mixed-Use', icon: '🏙️', desc: 'Both residential and commercial' },
+    ],
+  },
+  {
+    id: 'size', question: 'How large is the project?',
+    subtitle: 'A rough estimate is fine.',
+    type: 'single',
+    options: [
+      { label: 'Small', icon: '📦', desc: 'Single room or minor job' },
+      { label: 'Medium', icon: '🏡', desc: 'Full floor or partial structure' },
+      { label: 'Large', icon: '🏗️', desc: 'Full building or multi-unit' },
+      { label: 'Very Large / Industrial', icon: '🏭', desc: 'Complex or large acreage' },
+    ],
+  },
+  {
+    id: 'timeline', question: 'When do you need it done?',
+    subtitle: 'We work fast — tell us your urgency.',
+    type: 'single',
+    options: [
+      { label: 'ASAP — This Week', icon: '🚨', desc: 'Need it started right away' },
+      { label: 'Within a Month', icon: '📅', desc: 'Planning the near future' },
+      { label: '1–3 Months', icon: '🗓️', desc: 'Still in planning phase' },
+      { label: 'Just Exploring', icon: '💭', desc: 'Getting prices and options' },
+    ],
+  },
+  {
+    id: 'budget', question: "What's your estimated budget?",
+    subtitle: 'Helps us tailor the right solution.',
+    type: 'single',
+    options: [
+      { label: 'Under $5,000', icon: '💵', desc: 'Small or targeted projects' },
+      { label: '$5,000 – $20,000', icon: '💰', desc: 'Mid-size demo or clearing' },
+      { label: '$20,000 – $75,000', icon: '💎', desc: 'Large-scale demolition' },
+      { label: '$75,000+', icon: '🏦', desc: 'Major commercial or industrial' },
+      { label: 'Not Sure Yet', icon: '🤷', desc: 'Need a quote first' },
+    ],
+  },
+  {
+    id: 'contact', question: 'How should we reach you?',
+    subtitle: 'We respond within 1 hour — your choice of email or callback.',
+    type: 'contact',
+  },
+]
+
+const BLANK = {
+  services: [], scope: '', size: '', timeline: '', budget: '',
+  name: '', email: '', contactMethod: '', callbackNumber: '', city: '', notes: '',
+}
+
+// ── Component ──────────────────────────────────────────────────────────────────
+export default function ConstructionPage() {
+  const { lang, setLang, t } = useLang()
+  const c = t?.construction || {}
+  const [open, setOpen] = useState(false)
+  const [step, setStep] = useState(0)
+  const [form, setForm] = useState(BLANK)
+  const [saving, setSaving] = useState(false)
+  const [done, setDone] = useState(false)
+  const [err, setErr] = useState('')
+  const [navScrolled, setNavScrolled] = useState(false)
+
+  useEffect(() => {
+    const fn = () => setNavScrolled(window.scrollY > 40)
+    window.addEventListener('scroll', fn, { passive: true })
+    return () => window.removeEventListener('scroll', fn)
+  }, [])
+
+  const cur = STEPS[step]
+  const pct = Math.round(((step + 1) / STEPS.length) * 100)
+
+  function toggleMulti(val) {
+    setForm(f => ({
+      ...f,
+      services: f.services.includes(val) ? f.services.filter(x => x !== val) : [...f.services, val],
+    }))
+  }
+
+  function pickSingle(field, val) {
+    setForm(f => ({ ...f, [field]: val }))
+    setTimeout(() => setStep(s => s + 1), 180)
+  }
+
+  function canNext() {
+    if (cur.type === 'multi') return form.services.length > 0
+    if (cur.type === 'single') return !!form[cur.id]
+    if (cur.type === 'contact') {
+      if (!form.name || !form.email || !form.contactMethod) return false
+      if (form.contactMethod === 'callback' && !form.callbackNumber) return false
+      return true
+    }
+    return true
+  }
+
+  function openForm() { setOpen(true); setStep(0); setForm(BLANK); setDone(false); setErr('') }
+
+  async function submit(e) {
+    e.preventDefault()
+    if (!canNext()) return
+    setSaving(true); setErr('')
+    try {
+      const res = await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      })
+      if (!res.ok) throw new Error((await res.json()).error || 'Submission failed')
+      setDone(true)
+    } catch (ex) { setErr(ex.message) }
+    setSaving(false)
+  }
+
+  return (
+    <div className="min-h-screen bg-white text-gray-900">
+
+      {/* ── NAV */}
+      {/* seo: business name anchor for crawlers */}
+      <nav className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${navScrolled ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100' : 'bg-transparent'}`}>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+          <a href="/" className="flex items-center gap-2.5 hover:opacity-90 transition-opacity" aria-label="PAPY Constructions &amp; Demolitions — Home">
+            <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center shrink-0">
+              <span className="text-white font-black text-xs">P</span>
+            </div>
+            <div>
+              <p className={`font-black text-[11px] leading-none transition-colors ${navScrolled ? 'text-gray-900' : 'text-white'}`}>PAPY Constructions &amp; Demolitions</p>
+              <p className="text-[10px] text-gray-400 tracking-widest uppercase">Austin, TX</p>
+            </div>
+          </a>
+          <div className="hidden sm:flex items-center gap-5">
+            <a href="#services" className={`text-sm font-medium transition-colors hover:text-orange-500 ${navScrolled ? 'text-gray-600' : 'text-gray-200'}`}>{c.nav?.services || 'Services'}</a>
+            <a href="#about" className={`text-sm font-medium transition-colors hover:text-orange-500 ${navScrolled ? 'text-gray-600' : 'text-gray-200'}`}>{c.nav?.about || 'About'}</a>
+            <a href="#areas" className={`text-sm font-medium transition-colors hover:text-orange-500 ${navScrolled ? 'text-gray-600' : 'text-gray-200'}`}>{c.nav?.areas || 'Areas'}</a>
+            <select value={lang} onChange={e => setLang(e.target.value)}
+              className={`text-sm border rounded-lg px-2 py-1 focus:outline-none focus:border-orange-400 bg-transparent transition-colors ${navScrolled ? 'text-gray-600 border-gray-200' : 'text-gray-300 border-white/20'}`}
+              aria-label="Language">
+              <option value="en">EN</option>
+              <option value="fr">FR</option>
+              <option value="es">ES</option>
+              <option value="ru">RU</option>
+              <option value="sw">SW</option>
+            </select>
+          </div>
+          <button onClick={openForm}
+            className="bg-orange-500 hover:bg-orange-600 text-white font-bold px-5 py-2.5 rounded-xl text-sm transition-all hover:scale-105 shadow-lg shadow-orange-500/25">
+            {c.nav?.estimate || 'Free Estimate'}
+          </button>
+        </div>
+      </nav>
+
+      {/* ── HERO */}
+      <section className="relative bg-gray-950 text-white overflow-hidden min-h-[100svh] flex flex-col justify-center">
+        <div className="absolute inset-0 opacity-[0.035]"
+          style={{ backgroundImage: 'repeating-linear-gradient(-45deg,#f97316 0,#f97316 1px,transparent 0,transparent 50%)', backgroundSize: '24px 24px' }} />
+        <div className="absolute top-1/3 right-0 w-[480px] h-[480px] bg-orange-500/10 rounded-full blur-[120px] pointer-events-none translate-x-1/3" />
+        <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-white to-transparent pointer-events-none z-10" />
+        <div className="relative z-20 max-w-6xl mx-auto px-4 sm:px-6 pt-24 pb-52 sm:pb-60">
+          <div className="inline-flex items-center gap-2 bg-orange-500/15 border border-orange-500/25 rounded-full px-4 py-1.5 mb-8">
+            <span className="w-2 h-2 bg-orange-400 rounded-full animate-pulse" />
+            <span className="text-orange-300 text-xs font-bold tracking-widest uppercase">
+              {c.hero?.badge || 'Licensed & Insured · Austin, TX'}
+            </span>
+          </div>
+          <h1 className="text-[clamp(3rem,11vw,7.5rem)] font-black leading-[0.88] tracking-tighter mb-8">
+            <span className="block">DEMOLITION.</span>
+            <span className="block">CONSTRUCTION.</span>
+            <span className="block text-orange-500">DONE RIGHT.</span>
+          </h1>
+          <p className="text-gray-400 text-lg sm:text-xl max-w-xl mb-10 leading-relaxed">
+            {c.hero?.sub || <span>Austin&#39;s trusted contractor — residential &amp; commercial demo, site clearing, concrete work, and hauling. <strong className="text-white">Serving Texas and cities up to 1,000 miles away.</strong></span>}
+          </p>
+          <div className="flex flex-col xs:flex-row gap-3 sm:gap-4 items-start xs:items-center mb-14">
+            <button onClick={openForm}
+              className="w-full xs:w-auto bg-orange-500 hover:bg-orange-400 text-white font-black px-8 py-4 rounded-2xl text-lg transition-all hover:scale-105 shadow-xl shadow-orange-500/30">
+              {c.hero?.cta || 'GET FREE ESTIMATE'} →
+            </button>
+            <div className="flex items-center gap-2 text-orange-300 text-sm font-semibold">
+              <span>⏱</span>
+              <span>{c.hero?.response || 'We respond within 1 hour'}</span>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            {STATS.map(s => (
+              <div key={s.label} className="bg-white/[0.05] border border-white/10 rounded-2xl p-4 text-center">
+                <p className="text-2xl sm:text-3xl font-black text-orange-400">{s.value}</p>
+                <p className="text-gray-500 text-xs mt-1">{s.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── SERVICES */}
+      <section id="services" className="py-20 px-4 sm:px-6 bg-white">
+        <div className="max-w-6xl mx-auto">
+          <div className="mb-12">
+            <p className="text-orange-500 text-xs font-black tracking-widest uppercase mb-2">{c.services?.label || 'What We Do'}</p>
+            <h2 className="text-4xl sm:text-5xl font-black text-gray-900 leading-tight">
+              {c.services?.heading || <span>FULL-SERVICE<br className="sm:hidden" /> CONTRACTOR</span>}
+            </h2>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {SERVICES.map(sv => (
+              <button key={sv.num} onClick={openForm}
+                className="group text-left bg-white hover:bg-orange-50 border-2 border-gray-200 hover:border-orange-400 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all hover:-translate-y-1 active:scale-[0.99]">
+                <p className="text-orange-500 font-black text-sm tracking-widest mb-3">{sv.num}</p>
+                <h3 className="text-gray-900 font-black text-lg mb-2 group-hover:text-orange-600 transition-colors">{sv.title}</h3>
+                <p className="text-gray-500 text-sm leading-relaxed mb-4">{sv.desc}</p>
+                <div className="flex flex-wrap gap-1.5">
+                  {sv.tags.map(tag => (
+                    <span key={tag} className="bg-orange-100 text-orange-600 text-[10px] font-bold px-2 py-0.5 rounded-full">{tag}</span>
+                  ))}
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── WHY US */}
+      <section id="about" className="py-20 px-4 sm:px-6 bg-gray-950 text-white">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <p className="text-orange-500 text-xs font-black tracking-widest uppercase mb-3">{c.about?.label || 'Why Choose Us'}</p>
+              <h2 className="text-4xl sm:text-5xl font-black leading-tight mb-6">
+                WE SHOW UP.<br />WE WORK HARD.<br />WE CLEAN UP.
+              </h2>
+              <p className="text-gray-400 leading-relaxed mb-8">
+                Papy Construction &amp; Demolition has served Greater Austin for 15+ years.
+                Fully licensed and insured. No surprise invoices. No mess left behind.
+              </p>
+              <ul className="space-y-3 mb-10">
+                {[
+                  'Fully licensed & insured in Texas',
+                  'Free same-day estimates on most projects',
+                  'Transparent pricing — no hidden fees',
+                  'Equipment for jobs of any size',
+                  'Eco-conscious debris disposal & recycling',
+                  'Bilingual crew — English & Spanish',
+                  'We beat any written competitor quote',
+                ].map(l => (
+                  <li key={l} className="flex items-center gap-3 text-gray-300 text-sm">
+                    <span className="w-5 h-5 bg-orange-500 rounded-full flex items-center justify-center shrink-0 text-white text-[10px] font-black">✓</span>
+                    {l}
+                  </li>
+                ))}
+              </ul>
+              <button onClick={openForm}
+                className="bg-orange-500 hover:bg-orange-400 text-white font-black px-8 py-4 rounded-2xl text-lg transition-all hover:scale-105">
+                {c.about?.cta || 'Request a Free Quote'} →
+              </button>
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              {[
+                { e: '🏅', l: 'Licensed & Insured', s: 'Texas certified' },
+                { e: '⚡', l: 'Fast Turnaround', s: 'Most jobs done in days' },
+                { e: '⏱', l: '1hr Response', s: 'Submit — hear back fast' },
+                { e: '♻️', l: 'Green Disposal', s: 'We recycle & divert waste' },
+                { e: '🔒', l: 'OSHA Compliant', s: 'Safe practices, always' },
+                { e: '💰', l: 'Best Price', s: 'We beat any written quote' },
+              ].map(item => (
+                <div key={item.l} className="bg-gray-900 border border-white/5 rounded-2xl p-5 text-center">
+                  <div className="text-3xl mb-2">{item.e}</div>
+                  <p className="text-white font-bold text-sm">{item.l}</p>
+                  <p className="text-gray-600 text-xs mt-0.5">{item.s}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── PROMISE STRIP */}
+      <section className="bg-orange-500 py-14 px-4 sm:px-6">
+        <div className="max-w-3xl mx-auto text-center">
+          <p className="text-white/70 text-xs font-black tracking-widest uppercase mb-3">{c.cta?.label || 'Our Promise'}</p>
+          <h2 className="text-3xl sm:text-4xl font-black text-white mb-4">{c.cta?.heading || 'We respond within 1 hour.'}</h2>
+          <p className="text-orange-100 text-lg mb-8">
+            {c.cta?.sub || 'Submit the form — we\'ll email or call you back, your choice. No pressure, no spam.'}
+          </p>
+          <button onClick={openForm}
+            className="bg-white text-orange-600 font-black px-8 py-4 rounded-2xl text-lg hover:bg-orange-50 transition-colors">
+            {c.cta?.btn || 'GET FREE ESTIMATE'} →
+          </button>
+        </div>
+      </section>
+
+      {/* ── AREAS */}
+      <section id="areas" className="py-20 px-4 sm:px-6 bg-white">
+        <div className="max-w-6xl mx-auto">
+          <div className="mb-10">
+            <p className="text-orange-500 text-xs font-black tracking-widest uppercase mb-2">{c.areas?.label || 'Coverage'}</p>
+            <h2 className="text-4xl sm:text-5xl font-black text-gray-900 mb-3">{c.areas?.heading || 'SERVICE AREAS'}</h2>
+            <p className="text-gray-500">{c.areas?.sub || 'Based in Austin, TX — serving all of Texas and major cities within 1,000 miles.'}</p>
+          </div>
+          <div className="flex flex-wrap gap-2 mb-5">
+            {STATES.map(s => (
+              <span key={s} className="bg-orange-500 text-white font-black text-xs px-3 py-1.5 rounded-full">{s}</span>
+            ))}
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {CITIES.map(city => (
+              <span key={city}
+                className="bg-gray-100 hover:bg-orange-100 hover:text-orange-700 text-gray-600 text-sm px-4 py-1.5 rounded-full transition-colors cursor-default">
+                {city}
+              </span>
+            ))}
+            <span className="bg-orange-100 text-orange-600 font-semibold text-sm px-4 py-1.5 rounded-full">
+              {c.areas?.more || '+200 more — just ask!'}
+            </span>
+          </div>
+        </div>
+      </section>
+
+      {/* ── FOOTER */}
+      <footer className="bg-gray-950 text-gray-600 py-10 px-4 sm:px-6 pb-28 sm:pb-10">
+        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-sm">
+          <div className="flex items-center gap-2">
+            <div className="w-6 h-6 bg-orange-500 rounded flex items-center justify-center shrink-0">
+              <span className="text-white font-black text-[10px]">P</span>
+            </div>
+            <span className="font-bold text-gray-400">Papy Constructions &amp; Demolitions</span>
+          </div>
+          <address className="not-italic text-center sm:text-right">
+            <p>Licensed &amp; Insured · Austin, TX · 1,000-Mile Radius</p>
+            <p>&copy; {new Date().getFullYear()} Papy Constructions &amp; Demolitions. All rights reserved.</p>
+          </address>
+        </div>
+      </footer>
+
+      {/* ── STICKY MOBILE BAR */}
+      <div className="sm:hidden fixed bottom-0 inset-x-0 z-40 bg-white border-t border-gray-100 p-4 safe-bottom">
+        <button onClick={openForm}
+          className="w-full bg-orange-500 hover:bg-orange-600 text-white font-black py-4 rounded-2xl text-base transition-colors shadow-lg shadow-orange-500/30">
+          {c.hero?.cta || 'Get Free Estimate'} — 1 Hr Response ⏱
+        </button>
+      </div>
+
+      {/* ── LEAD FORM MODAL */}
+      {open && (
+        <>
+          <div className="fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm" onClick={() => setOpen(false)} />
+          <div className="fixed z-[70] inset-x-0 bottom-0 sm:inset-0 sm:flex sm:items-center sm:justify-center sm:p-4 pointer-events-none">
+            <div className="pointer-events-auto w-full sm:max-w-lg bg-white rounded-t-3xl sm:rounded-3xl shadow-2xl max-h-[92svh] overflow-y-auto">
+              {/* drag handle mobile */}
+              <div className="sm:hidden flex justify-center pt-3 pb-1">
+                <div className="w-10 h-1 bg-gray-200 rounded-full" />
+              </div>
+              {/* header */}
+              <div className="px-6 pt-4 pb-4 border-b border-gray-100 flex items-center justify-between">
+                <div>
+                  <p className="text-orange-500 text-[10px] font-black tracking-widest uppercase">{c.modal?.label || 'Free Estimate'}</p>
+                  <p className="text-gray-900 font-black text-lg">{c.modal?.title || 'PAPY Constructions & Demolitions'}</p>
+                </div>
+                <button onClick={() => setOpen(false)}
+                  className="w-9 h-9 rounded-xl bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-500 hover:text-gray-900 transition-colors text-lg">
+                  ✕
+                </button>
+              </div>
+
+              {done ? (
+                <div className="px-6 py-12 text-center">
+                  <div className="text-5xl mb-4">🎉</div>
+                  <h3 className="text-2xl font-black text-gray-900 mb-2">{c.modal?.done || "YOU'RE ALL SET!"}</h3>
+                  <p className="text-gray-600 mb-2">
+                    {c.modal?.thanks || 'Thanks'}, <strong>{form.name}</strong>!
+                  </p>
+                  <p className="text-gray-500 text-sm mb-8">
+                    {form.contactMethod === 'callback'
+                      ? <span>We&apos;ll call <strong className="text-orange-500">{form.callbackNumber}</strong> within 1 hour.</span>
+                      : <span>We&apos;ll email <strong className="text-orange-500">{form.email}</strong> within 1 hour.</span>
+                    }
+                  </p>
+                  <button onClick={() => setOpen(false)}
+                    className="bg-orange-500 hover:bg-orange-400 text-white font-bold px-8 py-3 rounded-2xl transition-colors">
+                    {c.modal?.close || 'Close'}
+                  </button>
+                </div>
+              ) : (
+                <div className="px-6 py-5">
+                  {/* progress */}
+                  <div className="mb-5">
+                    <div className="flex justify-between text-xs text-gray-400 mb-2">
+                      <span>{c.modal?.step || 'Step'} {step + 1} {c.modal?.of || 'of'} {STEPS.length}</span>
+                      <span>{pct}%</span>
+                    </div>
+                    <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                      <div className="h-full bg-orange-500 rounded-full transition-all duration-500" style={{ width: `${pct}%` }} />
+                    </div>
+                  </div>
+
+                  <h3 className="text-xl font-black text-gray-900 mb-1">{cur.question}</h3>
+                  <p className="text-gray-500 text-sm mb-5">{cur.subtitle}</p>
+
+                  {/* multi select */}
+                  {cur.type === 'multi' && (
+                    <div className="space-y-2">
+                      {cur.options.map(opt => {
+                        const sel = form.services.includes(opt.label)
+                        return (
+                          <button key={opt.label} type="button" onClick={() => toggleMulti(opt.label)}
+                            className={`w-full flex items-center gap-4 p-4 rounded-2xl border text-left transition-all active:scale-[0.98] ${sel ? 'border-orange-400 bg-orange-50 text-gray-900' : 'border-gray-100 bg-gray-50 text-gray-700 hover:border-orange-200'}`}>
+                            <span className="text-2xl">{opt.icon}</span>
+                            <div className="flex-1 min-w-0">
+                              <p className="font-bold text-sm">{opt.label}</p>
+                              <p className="text-xs text-gray-400 mt-0.5">{opt.desc}</p>
+                            </div>
+                            <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 ${sel ? 'border-orange-500 bg-orange-500' : 'border-gray-300'}`}>
+                              {sel && <span className="text-white text-[10px] font-black">✓</span>}
+                            </div>
+                          </button>
+                        )
+                      })}
+                    </div>
+                  )}
+
+                  {/* single select — auto advance */}
+                  {cur.type === 'single' && (
+                    <div className="space-y-2">
+                      {cur.options.map(opt => {
+                        const sel = form[cur.id] === opt.label
+                        return (
+                          <button key={opt.label} type="button" onClick={() => pickSingle(cur.id, opt.label)}
+                            className={`w-full flex items-center gap-4 p-4 rounded-2xl border text-left transition-all active:scale-[0.98] ${sel ? 'border-orange-400 bg-orange-50 text-gray-900' : 'border-gray-100 bg-gray-50 text-gray-700 hover:border-orange-200'}`}>
+                            <span className="text-2xl">{opt.icon}</span>
+                            <div className="flex-1 min-w-0">
+                              <p className="font-bold text-sm">{opt.label}</p>
+                              <p className="text-xs text-gray-400 mt-0.5">{opt.desc}</p>
+                            </div>
+                            <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 ${sel ? 'border-orange-500 bg-orange-500' : 'border-gray-300'}`}>
+                              {sel && <span className="text-white text-[10px] font-black">✓</span>}
+                            </div>
+                          </button>
+                        )
+                      })}
+                    </div>
+                  )}
+
+                  {/* contact step */}
+                  {cur.type === 'contact' && (
+                    <form onSubmit={submit} className="space-y-4">
+                      <div>
+                        <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-1.5">Full Name *</label>
+                        <input value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
+                          placeholder="John Smith" required autoComplete="name"
+                          className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-900 text-sm focus:outline-none focus:border-orange-400 placeholder-gray-400 transition-all" />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-1.5">Email Address *</label>
+                        <input value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
+                          type="email" placeholder="you@email.com" required autoComplete="email"
+                          className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-900 text-sm focus:outline-none focus:border-orange-400 placeholder-gray-400 transition-all" />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">How should we respond? *</label>
+                        <div className="grid grid-cols-2 gap-2">
+                          {[
+                            { val: 'email', icon: '📧', label: 'Email Me' },
+                            { val: 'callback', icon: '📞', label: 'Call Me Back' },
+                          ].map(m => (
+                            <button key={m.val} type="button"
+                              onClick={() => setForm(f => ({ ...f, contactMethod: m.val, callbackNumber: m.val === 'email' ? '' : f.callbackNumber }))}
+                              className={`flex items-center justify-center gap-2 py-3 rounded-xl border font-bold text-sm transition-all ${form.contactMethod === m.val ? 'border-orange-400 bg-orange-50 text-orange-600' : 'border-gray-200 bg-gray-50 text-gray-600 hover:border-orange-200'}`}>
+                              <span>{m.icon}</span> {m.label}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                      {form.contactMethod === 'callback' && (
+                        <div>
+                          <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-1.5">Best Phone Number *</label>
+                          <input value={form.callbackNumber} onChange={e => setForm(f => ({ ...f, callbackNumber: e.target.value }))}
+                            type="tel" placeholder="(512) 000-0000" required autoComplete="tel"
+                            className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-900 text-sm focus:outline-none focus:border-orange-400 placeholder-gray-400 transition-all" />
+                        </div>
+                      )}
+                      <div>
+                        <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-1.5">Project Location</label>
+                        <input value={form.city} onChange={e => setForm(f => ({ ...f, city: e.target.value }))}
+                          placeholder="Austin TX or 123 Main St, Cedar Park"
+                          className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-900 text-sm focus:outline-none focus:border-orange-400 placeholder-gray-400 transition-all" />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-1.5">Additional Details</label>
+                        <textarea value={form.notes} onChange={e => setForm(f => ({ ...f, notes: e.target.value }))}
+                          rows={3} placeholder="Describe the project, access issues, materials, etc."
+                          className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-900 text-sm focus:outline-none focus:border-orange-400 placeholder-gray-400 resize-none transition-all" />
+                      </div>
+                      {err && <p className="text-red-500 text-sm bg-red-50 border border-red-200 rounded-xl px-4 py-2">{err}</p>}
+                      <button type="submit" disabled={saving || !canNext()}
+                        className="w-full bg-orange-500 hover:bg-orange-600 disabled:opacity-50 text-white font-black py-4 rounded-2xl text-lg transition-colors">
+                        {saving ? 'Sending…' : 'SEND MY FREE ESTIMATE →'}
+                      </button>
+                      <p className="text-center text-gray-400 text-xs">No spam ever. We only contact you about your project.</p>
+                    </form>
+                  )}
+
+                  {/* nav buttons (multi only — single auto-advances) */}
+                  {cur.type === 'multi' && (
+                    <div className="flex gap-3 mt-5">
+                      {step > 0 && (
+                        <button type="button" onClick={() => setStep(s => s - 1)}
+                          className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-600 hover:text-gray-900 font-bold py-3.5 rounded-2xl text-sm transition-colors">
+                          ← Back
+                        </button>
+                      )}
+                      <button type="button" onClick={() => setStep(s => s + 1)} disabled={!canNext()}
+                        className="flex-1 bg-orange-500 hover:bg-orange-600 disabled:opacity-40 disabled:cursor-not-allowed text-white font-black py-3.5 rounded-2xl text-sm transition-all">
+                        NEXT →
+                      </button>
+                    </div>
+                  )}
+                  {cur.type === 'contact' && step > 0 && (
+                    <button type="button" onClick={() => setStep(s => s - 1)}
+                      className="w-full mt-3 bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold py-3 rounded-2xl text-sm transition-colors">
+                      ← Back
+                    </button>
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+        </>
+      )}
+    </div>
+  )
+}
