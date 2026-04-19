@@ -110,6 +110,7 @@ export default function ConstructionPage() {
   const [done, setDone] = useState(false)
   const [err, setErr] = useState('')
   const [navScrolled, setNavScrolled] = useState(false)
+  const [langOpen, setLangOpen] = useState(false)
 
   useEffect(() => {
     const fn = () => setNavScrolled(window.scrollY > 40)
@@ -181,15 +182,26 @@ export default function ConstructionPage() {
             <a href="#services" className={`text-sm font-medium transition-colors hover:text-orange-500 ${navScrolled ? 'text-gray-600' : 'text-gray-200'}`}>{c.nav?.services || 'Services'}</a>
             <a href="#about" className={`text-sm font-medium transition-colors hover:text-orange-500 ${navScrolled ? 'text-gray-600' : 'text-gray-200'}`}>{c.nav?.about || 'About'}</a>
             <a href="#areas" className={`text-sm font-medium transition-colors hover:text-orange-500 ${navScrolled ? 'text-gray-600' : 'text-gray-200'}`}>{c.nav?.areas || 'Areas'}</a>
-            <select value={lang} onChange={e => setLang(e.target.value)}
-              className={`text-sm border rounded-lg px-2 py-1 focus:outline-none focus:border-orange-400 bg-transparent transition-colors ${navScrolled ? 'text-gray-600 border-gray-200' : 'text-gray-300 border-white/20'}`}
-              aria-label="Language">
-              <option value="en">EN</option>
-              <option value="fr">FR</option>
-              <option value="es">ES</option>
-              <option value="ru">RU</option>
-              <option value="sw">SW</option>
-            </select>
+            <div className="relative">
+              <button
+                onClick={() => setLangOpen(o => !o)}
+                aria-label="Select language"
+                className="flex items-center gap-1.5 text-gray-300 hover:text-white text-sm font-bold border border-white/15 rounded-lg px-3 py-1.5 bg-gray-900/80 transition-colors">
+                {lang.toUpperCase()} <span className="text-[10px] opacity-60">▼</span>
+              </button>
+              {langOpen && (
+                <div className="absolute right-0 top-full mt-1 bg-gray-900 border border-white/10 rounded-xl shadow-2xl overflow-hidden z-50 min-w-[80px]">
+                  {['en', 'fr', 'es', 'ru', 'sw'].map(l => (
+                    <button key={l} onClick={() => { setLang(l); setLangOpen(false) }}
+                      className={`w-full px-4 py-2.5 text-left text-sm font-bold transition-colors hover:bg-white/5 ${
+                        lang === l ? 'text-orange-400 bg-white/[0.03]' : 'text-gray-300'
+                      }`}>
+                      {l.toUpperCase()}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
           <button onClick={openForm}
             className="bg-orange-500 hover:bg-orange-600 text-white font-bold px-5 py-2.5 rounded-xl text-sm transition-all hover:scale-105 shadow-lg shadow-orange-500/25">
@@ -276,14 +288,13 @@ export default function ConstructionPage() {
             <div>
               <p className="text-orange-500 text-xs font-black tracking-widest uppercase mb-3">{c.about?.label || 'Why Choose Us'}</p>
               <h2 className="text-4xl sm:text-5xl font-black leading-tight mb-6">
-                WE SHOW UP.<br />WE WORK HARD.<br />WE CLEAN UP.
+                {c.about?.heading || <span>WE SHOW UP.<br />WE WORK HARD.<br />WE CLEAN UP.</span>}
               </h2>
               <p className="text-gray-400 leading-relaxed mb-8">
-                Papy Construction &amp; Demolition has served Greater Austin for 15+ years.
-                Fully licensed and insured. No surprise invoices. No mess left behind.
+                {c.about?.p1 || 'Papy Constructions & Demolitions has served Greater Austin for 15+ years. Fully licensed and insured. No surprise invoices. No mess left behind.'}
               </p>
               <ul className="space-y-3 mb-10">
-                {[
+                {(c.about?.checklist || [
                   'Fully licensed & insured in Texas',
                   'Free same-day estimates on most projects',
                   'Transparent pricing — no hidden fees',
@@ -291,7 +302,7 @@ export default function ConstructionPage() {
                   'Eco-conscious debris disposal & recycling',
                   'Bilingual crew — English & Spanish',
                   'We beat any written competitor quote',
-                ].map(l => (
+                ]).map(l => (
                   <li key={l} className="flex items-center gap-3 text-gray-300 text-sm">
                     <span className="w-5 h-5 bg-orange-500 rounded-full flex items-center justify-center shrink-0 text-white text-[10px] font-black">✓</span>
                     {l}
@@ -304,18 +315,18 @@ export default function ConstructionPage() {
               </button>
             </div>
             <div className="grid grid-cols-2 gap-3">
-              {[
+              {(c.about?.badges || [
                 { e: '🏅', l: 'Licensed & Insured', s: 'Texas certified' },
                 { e: '⚡', l: 'Fast Turnaround', s: 'Most jobs done in days' },
                 { e: '⏱', l: '1hr Response', s: 'Submit — hear back fast' },
                 { e: '♻️', l: 'Green Disposal', s: 'We recycle & divert waste' },
                 { e: '🔒', l: 'OSHA Compliant', s: 'Safe practices, always' },
                 { e: '💰', l: 'Best Price', s: 'We beat any written quote' },
-              ].map(item => (
-                <div key={item.l} className="bg-gray-900 border border-white/5 rounded-2xl p-5 text-center">
-                  <div className="text-3xl mb-2">{item.e}</div>
-                  <p className="text-white font-bold text-sm">{item.l}</p>
-                  <p className="text-gray-600 text-xs mt-0.5">{item.s}</p>
+              ]).map((item, i) => (
+                <div key={i} className="bg-gray-900 border border-white/5 rounded-2xl p-5 text-center">
+                  <div className="text-3xl mb-2">{item.e || ['🏅','⚡','⏱','♻️','🔒','💰'][i]}</div>
+                  <p className="text-white font-bold text-sm">{item.l || item}</p>
+                  <p className="text-gray-600 text-xs mt-0.5">{item.s || ''}</p>
                 </div>
               ))}
             </div>
@@ -420,8 +431,8 @@ export default function ConstructionPage() {
                   </p>
                   <p className="text-gray-500 text-sm mb-8">
                     {form.contactMethod === 'callback'
-                      ? <span>We&apos;ll call <strong className="text-orange-500">{form.callbackNumber}</strong> within 1 hour.</span>
-                      : <span>We&apos;ll email <strong className="text-orange-500">{form.email}</strong> within 1 hour.</span>
+                      ? <span>{c.modal?.successCallback ? c.modal.successCallback.replace('{phone}', form.callbackNumber) : <>We&apos;ll call <strong className="text-orange-500">{form.callbackNumber}</strong> within 1 hour.</>}</span>
+                      : <span>{c.modal?.successEmail ? c.modal.successEmail.replace('{email}', form.email) : <>We&apos;ll email <strong className="text-orange-500">{form.email}</strong> within 1 hour.</>}</span>
                     }
                   </p>
                   <button onClick={() => setOpen(false)}
@@ -493,23 +504,23 @@ export default function ConstructionPage() {
                   {cur.type === 'contact' && (
                     <form onSubmit={submit} className="space-y-4">
                       <div>
-                        <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-1.5">Full Name *</label>
+                        <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-1.5">{c.modal?.fullname || 'Full Name'} *</label>
                         <input value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
                           placeholder="John Smith" required autoComplete="name"
                           className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-900 text-sm focus:outline-none focus:border-orange-400 placeholder-gray-400 transition-all" />
                       </div>
                       <div>
-                        <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-1.5">Email Address *</label>
+                        <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-1.5">{c.modal?.emailaddr || 'Email Address'} *</label>
                         <input value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
                           type="email" placeholder="you@email.com" required autoComplete="email"
                           className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-900 text-sm focus:outline-none focus:border-orange-400 placeholder-gray-400 transition-all" />
                       </div>
                       <div>
-                        <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">How should we respond? *</label>
+                        <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">{c.modal?.howrespond || 'How should we respond?'} *</label>
                         <div className="grid grid-cols-2 gap-2">
                           {[
-                            { val: 'email', icon: '📧', label: 'Email Me' },
-                            { val: 'callback', icon: '📞', label: 'Call Me Back' },
+                            { val: 'email', icon: '📧', label: c.modal?.emailme || 'Email Me' },
+                            { val: 'callback', icon: '📞', label: c.modal?.callmeback || 'Call Me Back' },
                           ].map(m => (
                             <button key={m.val} type="button"
                               onClick={() => setForm(f => ({ ...f, contactMethod: m.val, callbackNumber: m.val === 'email' ? '' : f.callbackNumber }))}
@@ -521,20 +532,20 @@ export default function ConstructionPage() {
                       </div>
                       {form.contactMethod === 'callback' && (
                         <div>
-                          <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-1.5">Best Phone Number *</label>
+                          <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-1.5">{c.modal?.phone || 'Best Phone Number'} *</label>
                           <input value={form.callbackNumber} onChange={e => setForm(f => ({ ...f, callbackNumber: e.target.value }))}
                             type="tel" placeholder="(512) 000-0000" required autoComplete="tel"
                             className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-900 text-sm focus:outline-none focus:border-orange-400 placeholder-gray-400 transition-all" />
                         </div>
                       )}
                       <div>
-                        <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-1.5">Project Location</label>
+                        <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-1.5">{c.modal?.location || 'Project Location'}</label>
                         <input value={form.city} onChange={e => setForm(f => ({ ...f, city: e.target.value }))}
                           placeholder="Austin TX or 123 Main St, Cedar Park"
                           className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-900 text-sm focus:outline-none focus:border-orange-400 placeholder-gray-400 transition-all" />
                       </div>
                       <div>
-                        <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-1.5">Additional Details</label>
+                        <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-1.5">{c.modal?.details || 'Additional Details'}</label>
                         <textarea value={form.notes} onChange={e => setForm(f => ({ ...f, notes: e.target.value }))}
                           rows={3} placeholder="Describe the project, access issues, materials, etc."
                           className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-900 text-sm focus:outline-none focus:border-orange-400 placeholder-gray-400 resize-none transition-all" />
@@ -542,9 +553,9 @@ export default function ConstructionPage() {
                       {err && <p className="text-red-500 text-sm bg-red-50 border border-red-200 rounded-xl px-4 py-2">{err}</p>}
                       <button type="submit" disabled={saving || !canNext()}
                         className="w-full bg-orange-500 hover:bg-orange-600 disabled:opacity-50 text-white font-black py-4 rounded-2xl text-lg transition-colors">
-                        {saving ? 'Sending…' : 'SEND MY FREE ESTIMATE →'}
+                        {saving ? (c.modal?.sending || 'Sending…') : (c.modal?.send || 'SEND MY FREE ESTIMATE →')}
                       </button>
-                      <p className="text-center text-gray-400 text-xs">No spam ever. We only contact you about your project.</p>
+                      <p className="text-center text-gray-400 text-xs">{c.modal?.nospam || 'No spam ever. We only contact you about your project.'}</p>
                     </form>
                   )}
 
@@ -554,19 +565,19 @@ export default function ConstructionPage() {
                       {step > 0 && (
                         <button type="button" onClick={() => setStep(s => s - 1)}
                           className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-600 hover:text-gray-900 font-bold py-3.5 rounded-2xl text-sm transition-colors">
-                          ← Back
+                          {c.modal?.back || '← Back'}
                         </button>
                       )}
                       <button type="button" onClick={() => setStep(s => s + 1)} disabled={!canNext()}
                         className="flex-1 bg-orange-500 hover:bg-orange-600 disabled:opacity-40 disabled:cursor-not-allowed text-white font-black py-3.5 rounded-2xl text-sm transition-all">
-                        NEXT →
+                        {c.modal?.next || 'NEXT →'}
                       </button>
                     </div>
                   )}
                   {cur.type === 'contact' && step > 0 && (
                     <button type="button" onClick={() => setStep(s => s - 1)}
                       className="w-full mt-3 bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold py-3 rounded-2xl text-sm transition-colors">
-                      ← Back
+                      {c.modal?.back || '← Back'}
                     </button>
                   )}
                 </div>
