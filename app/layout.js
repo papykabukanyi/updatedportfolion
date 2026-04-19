@@ -10,15 +10,17 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://papy-construction-
 export const metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: 'Papy Construction & Demolition | Licensed Contractor — Austin, TX | Serving TX, OK, LA, AR, NM, AZ & Beyond',
-    template: '%s | Papy Construction & Demolition | Austin TX',
+    default: 'Papy Constructions & Demolitions | Licensed Contractor — Austin, TX | Serving TX, OK, LA, AR, NM, AZ & Beyond',
+    template: '%s | Papy Constructions & Demolitions | Austin TX',
   },
   description:
     'Papy Construction & Demolition — Austin TX licensed general contractor. Residential & commercial demolition, site clearing, interior demo, concrete breaking & debris removal. Serving all of Texas, Oklahoma, Louisiana, Arkansas, New Mexico, Arizona, Colorado and surrounding states within 1,000 miles of Austin. Call for a FREE estimate!',
   keywords: [
     // ── Brand
-    'Papy Construction','Papy Demolition','Papy Construction and Demolition','Papy C&D',
-    'Papy C&D Austin','papykabukanyi demolition','papy contractor Austin TX',
+    'Papy Constructions and Demolitions','Papy Construction and Demolition','Papy Demolition','Papy C&D',
+    'Papy C&D Austin','papykabukanyi demolition','papy contractor Austin TX','Papy Constructions Demolitions Austin',
+    'Papy Construction','Papy Demolition','papy kabukanyi construction',
+    'PAPY Constructions Demolitions Texas','Papy Construction Demolition Austin TX',
     // ── Austin Metro
     'demolition contractor Austin TX','construction company Austin TX',
     'residential demolition Austin TX','commercial demolition Austin TX',
@@ -156,21 +158,21 @@ export const metadata = {
     'free demolition estimate','affordable demolition contractor',
     'fast demolition services','same day demolition estimate',
   ],
-  authors: [{ name: 'Papy Construction & Demolition', url: SITE_URL }],
+  authors: [{ name: 'Papy Constructions & Demolitions', url: SITE_URL }],
   robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1, 'max-video-preview': -1 } },
   alternates: { canonical: SITE_URL },
   openGraph: {
     type: 'website',
     locale: 'en_US',
     url: SITE_URL,
-    siteName: 'Papy Construction & Demolition',
-    title: 'Papy Construction & Demolition | Austin TX Licensed Contractor — Serving 1,000 Miles',
+    siteName: 'Papy Constructions & Demolitions',
+    title: 'Papy Constructions & Demolitions | Austin TX Licensed Contractor — Serving 1,000 Miles',
     description: 'Licensed demolition & construction contractor based in Austin TX. Residential & commercial demolition, site clearing, concrete breaking, debris removal. Serving Texas and surrounding states. FREE estimates!',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Papy Construction & Demolition | Austin TX — Serving TX, OK, LA, NM, AZ & More',
-    description: 'Licensed demolition & construction contractor in Austin TX. Serving all of Texas and surrounding states. FREE estimates!',
+    title: 'Papy Constructions & Demolitions | Austin TX — Serving TX, OK, LA, NM, AZ & More',
+    description: 'Licensed demolition & construction contractor in Austin TX. Serving all of Texas and surrounding states within 1,000 miles. FREE estimates!',
   },
   other: {
     'geo.region': 'US-TX',
@@ -187,8 +189,8 @@ export const viewport = {
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'GeneralContractor',
-  name: 'Papy Construction & Demolition',
-  alternateName: ['Papy C&D', 'Papy Demolition', 'Papy Construction'],
+  name: 'Papy Constructions & Demolitions',
+  alternateName: ['Papy C&D', 'Papy Demolition', 'Papy Construction', 'Papy Construction and Demolition', 'PAPY C&D Austin'],
   description: 'Licensed and insured demolition and construction contractor based in Austin, TX. Serving all of Texas, Oklahoma, Louisiana, Arkansas, New Mexico, Arizona, Colorado and surrounding states within 1,000 miles. Specializing in residential demolition, commercial demolition, interior demolition, site clearing, concrete breaking, and debris removal.',
   url: SITE_URL,
   telephone: '+15128675309',
@@ -354,11 +356,89 @@ const jsonLd = {
   sameAs: [SITE_URL],
 }
 
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'What services does Papy Constructions & Demolitions offer?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'We offer residential demolition, commercial demolition, interior demolition, site clearing & grading, concrete breaking & removal, and full-service debris hauling. Our crews are licensed and insured, servicing all property types.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Where does Papy Constructions & Demolitions serve?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'We are based in Austin, TX and serve all of Texas plus major cities within 1,000 miles — including Oklahoma City, Tulsa, Shreveport, New Orleans, Baton Rouge, Albuquerque, Phoenix, Denver, Atlanta, Nashville, and more.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How do I get a free estimate from Papy Constructions & Demolitions?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Simply fill out our online estimate form. We respond within 1 hour by email or phone callback — your choice. No pressure, no spam.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Is Papy Constructions & Demolitions licensed and insured?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes. We are fully licensed and insured in Texas. We carry all required certifications and maintain OSHA-compliant practices on every job site.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How much does demolition cost?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Project costs vary based on scope, size, and location. We offer transparent, no-hidden-fee pricing and we beat any written competitor quote. Submit a free estimate request and we will provide a detailed quote within 1 hour.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Do you handle both residential and commercial demolition?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes. We handle full residential teardowns, partial interior demo, commercial building demolition, warehouse removal, retail fit-out demo, industrial site clearing, and more.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What is the service radius for Papy Constructions & Demolitions?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'We serve Austin, TX and all surrounding cities within 1,000 miles, covering Texas, Oklahoma, Louisiana, Arkansas, Mississippi, Alabama, Tennessee, Georgia, Florida Panhandle, New Mexico, Arizona, Colorado, Kansas, Missouri, and Nebraska.',
+      },
+    },
+  ],
+}
+
+const websiteLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'Papy Constructions & Demolitions',
+  url: SITE_URL,
+  description: 'Licensed demolition and construction contractor in Austin, TX. Serving Texas and surrounding states within 1,000 miles.',
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: { '@type': 'EntryPoint', urlTemplate: `${SITE_URL}/?q={search_term_string}` },
+    'query-input': 'required name=search_term_string',
+  },
+}
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${inter.variable} ${oswald.variable}`}>
       <head>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteLd) }} />
       </head>
       <body className="bg-[#0a0c10] text-white antialiased font-sans">
         <LangProvider>{children}</LangProvider>

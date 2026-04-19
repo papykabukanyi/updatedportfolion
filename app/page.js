@@ -165,17 +165,18 @@ export default function ConstructionPage() {
     <div className="min-h-screen bg-white text-gray-900">
 
       {/* ── NAV */}
+      {/* seo: business name anchor for crawlers */}
       <nav className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${navScrolled ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100' : 'bg-transparent'}`}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
+          <a href="/" className="flex items-center gap-2.5 hover:opacity-90 transition-opacity" aria-label="PAPY Constructions &amp; Demolitions — Home">
             <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center shrink-0">
               <span className="text-white font-black text-xs">P</span>
             </div>
             <div>
-              <p className={`font-black text-sm leading-none transition-colors ${navScrolled ? 'text-gray-900' : 'text-white'}`}>PAPY C&amp;D</p>
+              <p className={`font-black text-[11px] leading-none transition-colors ${navScrolled ? 'text-gray-900' : 'text-white'}`}>PAPY Constructions &amp; Demolitions</p>
               <p className="text-[10px] text-gray-400 tracking-widest uppercase">Austin, TX</p>
             </div>
-          </div>
+          </a>
           <div className="hidden sm:flex items-center gap-5">
             <a href="#services" className={`text-sm font-medium transition-colors hover:text-orange-500 ${navScrolled ? 'text-gray-600' : 'text-gray-200'}`}>{c.nav?.services || 'Services'}</a>
             <a href="#about" className={`text-sm font-medium transition-colors hover:text-orange-500 ${navScrolled ? 'text-gray-600' : 'text-gray-200'}`}>{c.nav?.about || 'About'}</a>
@@ -198,7 +199,7 @@ export default function ConstructionPage() {
       </nav>
 
       {/* ── HERO */}
-      <section className="relative bg-gray-950 text-white overflow-hidden min-h-[100svh] flex flex-col justify-center">
+      <section aria-label="Papy Constructions &amp; Demolitions — Austin TX Licensed Contractor" className="relative bg-gray-950 text-white overflow-hidden min-h-[100svh] flex flex-col justify-center">
         <div className="absolute inset-0 opacity-[0.035]"
           style={{ backgroundImage: 'repeating-linear-gradient(-45deg,#f97316 0,#f97316 1px,transparent 0,transparent 50%)', backgroundSize: '24px 24px' }} />
         <div className="absolute top-1/3 right-0 w-[480px] h-[480px] bg-orange-500/10 rounded-full blur-[120px] pointer-events-none translate-x-1/3" />
@@ -215,6 +216,8 @@ export default function ConstructionPage() {
             <span className="block">CONSTRUCTION.</span>
             <span className="block text-orange-500">DONE RIGHT.</span>
           </h1>
+          {/* seo: hidden but crawlable subtitle with primary keyword */}
+          <p className="sr-only">Papy Constructions &amp; Demolitions — Licensed demolition contractor in Austin TX. Residential &amp; commercial demolition, site clearing, concrete breaking, debris removal. Serving Texas and surrounding states within 1,000 miles. Free estimates.</p>
           <p className="text-gray-400 text-lg sm:text-xl max-w-xl mb-10 leading-relaxed">
             {c.hero?.sub || <span>Austin&#39;s trusted contractor — residential &amp; commercial demo, site clearing, concrete work, and hauling. <strong className="text-white">Serving Texas and cities up to 1,000 miles away.</strong></span>}
           </p>
@@ -240,7 +243,7 @@ export default function ConstructionPage() {
       </section>
 
       {/* ── SERVICES */}
-      <section id="services" className="py-20 px-4 sm:px-6 bg-white">
+      <section id="services" aria-label="Demolition and Construction Services" className="py-20 px-4 sm:px-6 bg-white">
         <div className="max-w-6xl mx-auto">
           <div className="mb-12">
             <p className="text-orange-500 text-xs font-black tracking-widest uppercase mb-2">{c.services?.label || 'What We Do'}</p>
@@ -267,7 +270,7 @@ export default function ConstructionPage() {
       </section>
 
       {/* ── WHY US */}
-      <section id="about" className="py-20 px-4 sm:px-6 bg-gray-950 text-white">
+      <section id="about" aria-label="Why Choose Papy Constructions &amp; Demolitions" className="py-20 px-4 sm:px-6 bg-gray-950 text-white">
         <div className="max-w-6xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
@@ -336,7 +339,7 @@ export default function ConstructionPage() {
       </section>
 
       {/* ── AREAS */}
-      <section id="areas" className="py-20 px-4 sm:px-6 bg-white">
+      <section id="areas" aria-label="Service Areas — Texas and Surrounding States Within 1,000 Miles" className="py-20 px-4 sm:px-6 bg-white">
         <div className="max-w-6xl mx-auto">
           <div className="mb-10">
             <p className="text-orange-500 text-xs font-black tracking-widest uppercase mb-2">{c.areas?.label || 'Coverage'}</p>
@@ -369,10 +372,12 @@ export default function ConstructionPage() {
             <div className="w-6 h-6 bg-orange-500 rounded flex items-center justify-center shrink-0">
               <span className="text-white font-black text-[10px]">P</span>
             </div>
-            <span className="font-bold text-gray-400">Papy Construction &amp; Demolition</span>
+            <span className="font-bold text-gray-400">Papy Constructions &amp; Demolitions</span>
           </div>
-          <p>Licensed &amp; Insured · Austin TX · 1,000-Mile Radius</p>
-          <p>&copy; {new Date().getFullYear()} All rights reserved</p>
+          <address className="not-italic text-center sm:text-right">
+            <p>Licensed &amp; Insured · Austin, TX · 1,000-Mile Radius</p>
+            <p>&copy; {new Date().getFullYear()} Papy Constructions &amp; Demolitions. All rights reserved.</p>
+          </address>
         </div>
       </footer>
 
@@ -398,7 +403,7 @@ export default function ConstructionPage() {
               <div className="px-6 pt-4 pb-4 border-b border-gray-100 flex items-center justify-between">
                 <div>
                   <p className="text-orange-500 text-[10px] font-black tracking-widest uppercase">{c.modal?.label || 'Free Estimate'}</p>
-                  <p className="text-gray-900 font-black text-lg">{c.modal?.title || 'PAPY C&D · AUSTIN TX'}</p>
+                  <p className="text-gray-900 font-black text-lg">{c.modal?.title || 'PAPY Constructions & Demolitions'}</p>
                 </div>
                 <button onClick={() => setOpen(false)}
                   className="w-9 h-9 rounded-xl bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-500 hover:text-gray-900 transition-colors text-lg">
