@@ -113,3 +113,5 @@ a.block, div > a {
     overflow-wrap: break-word;
   }
 }
+
+/* Safe-area bottom padding for sticky mobile bar */.safe-bottom { padding-bottom: env(safe-area-inset-bottom, 0px); }

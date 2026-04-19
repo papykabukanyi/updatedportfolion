@@ -1,5 +1,5 @@
 'use client'
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useLang } from '@/lib/LangContext'
 
 // ── Data ───────────────────────────────────────────────────────────────────────
