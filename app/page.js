@@ -255,24 +255,24 @@ export default function ConstructionPage() {
       </section>
 
       {/* ── SERVICES */}
-      <section id="services" aria-label="Demolition and Construction Services" className="py-20 px-4 sm:px-6 bg-white">
+      <section id="services" aria-label="Demolition and Construction Services" className="py-20 px-4 sm:px-6 bg-gray-50">
         <div className="max-w-6xl mx-auto">
           <div className="mb-12">
             <p className="text-orange-500 text-xs font-black tracking-widest uppercase mb-2">{c.services?.label || 'What We Do'}</p>
             <h2 className="text-4xl sm:text-5xl font-black text-gray-900 leading-tight">
-              {c.services?.heading || <span>FULL-SERVICE<br className="sm:hidden" /> CONTRACTOR</span>}
+              {c.services?.heading || <span>FULL-SERVICE CONTRACTOR</span>}
             </h2>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {SERVICES.map(sv => (
               <button key={sv.num} onClick={openForm}
-                className="group text-left bg-white hover:bg-orange-50 border-2 border-gray-200 hover:border-orange-400 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all hover:-translate-y-1 active:scale-[0.99]">
+                className="group w-full h-full flex flex-col text-left bg-white hover:bg-orange-50 border border-gray-200 hover:border-orange-400 rounded-2xl p-6 shadow-sm hover:shadow-lg transition-all duration-200 hover:-translate-y-1 active:scale-[0.99]">
                 <p className="text-orange-500 font-black text-sm tracking-widest mb-3">{sv.num}</p>
                 <h3 className="text-gray-900 font-black text-lg mb-2 group-hover:text-orange-600 transition-colors">{sv.title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed mb-4">{sv.desc}</p>
-                <div className="flex flex-wrap gap-1.5">
+                <p className="text-gray-500 text-sm leading-relaxed mb-4 flex-1">{sv.desc}</p>
+                <div className="flex flex-wrap gap-1.5 mt-auto">
                   {sv.tags.map(tag => (
-                    <span key={tag} className="bg-orange-100 text-orange-600 text-[10px] font-bold px-2 py-0.5 rounded-full">{tag}</span>
+                    <span key={tag} className="bg-orange-100 text-orange-600 text-[10px] font-bold px-2.5 py-1 rounded-full">{tag}</span>
                   ))}
                 </div>
               </button>
@@ -403,50 +403,50 @@ export default function ConstructionPage() {
       {/* ── LEAD FORM MODAL */}
       {open && (
         <>
-          <div className="fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm" onClick={() => setOpen(false)} />
+          <div className="fixed inset-0 z-[60] bg-black/70 backdrop-blur-sm" onClick={() => setOpen(false)} />
           <div className="fixed z-[70] inset-x-0 bottom-0 sm:inset-0 sm:flex sm:items-center sm:justify-center sm:p-4 pointer-events-none">
-            <div className="pointer-events-auto w-full sm:max-w-lg bg-white rounded-t-3xl sm:rounded-3xl shadow-2xl max-h-[92svh] overflow-y-auto">
+            <div className="pointer-events-auto w-full sm:max-w-lg bg-white rounded-t-3xl sm:rounded-3xl shadow-2xl max-h-[94svh] sm:max-h-[90vh] overflow-y-auto flex flex-col">
               {/* drag handle mobile */}
-              <div className="sm:hidden flex justify-center pt-3 pb-1">
+              <div className="sm:hidden flex justify-center pt-3 pb-1 shrink-0">
                 <div className="w-10 h-1 bg-gray-200 rounded-full" />
               </div>
               {/* header */}
-              <div className="px-6 pt-4 pb-4 border-b border-gray-100 flex items-center justify-between">
+              <div className="px-6 pt-3 pb-4 border-b border-gray-100 flex items-center justify-between shrink-0">
                 <div>
-                  <p className="text-orange-500 text-[10px] font-black tracking-widest uppercase">{c.modal?.label || 'Free Estimate'}</p>
-                  <p className="text-gray-900 font-black text-lg">{c.modal?.title || 'PAPY Constructions & Demolitions'}</p>
+                  <p className="text-orange-500 text-[10px] font-black tracking-widest uppercase mb-0.5">{c.modal?.label || 'Free Estimate'}</p>
+                  <p className="text-gray-900 font-black text-base leading-tight">{c.modal?.title || 'PAPY Constructions & Demolitions'}</p>
                 </div>
                 <button onClick={() => setOpen(false)}
-                  className="w-9 h-9 rounded-xl bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-500 hover:text-gray-900 transition-colors text-lg">
+                  className="w-9 h-9 rounded-xl bg-gray-100 hover:bg-red-50 hover:text-red-500 flex items-center justify-center text-gray-400 transition-colors text-base font-bold shrink-0 ml-4">
                   ✕
                 </button>
               </div>
 
               {done ? (
-                <div className="px-6 py-12 text-center">
-                  <div className="text-5xl mb-4">🎉</div>
+                <div className="px-6 py-14 text-center flex flex-col items-center">
+                  <div className="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center text-3xl mb-5">🎉</div>
                   <h3 className="text-2xl font-black text-gray-900 mb-2">{c.modal?.done || "YOU'RE ALL SET!"}</h3>
-                  <p className="text-gray-600 mb-2">
+                  <p className="text-gray-600 mb-1">
                     {c.modal?.thanks || 'Thanks'}, <strong>{form.name}</strong>!
                   </p>
-                  <p className="text-gray-500 text-sm mb-8">
+                  <p className="text-gray-500 text-sm mb-8 max-w-xs">
                     {form.contactMethod === 'callback'
                       ? <span>{c.modal?.successCallback ? c.modal.successCallback.replace('{phone}', form.callbackNumber) : <>We&apos;ll call <strong className="text-orange-500">{form.callbackNumber}</strong> within 1 hour.</>}</span>
                       : <span>{c.modal?.successEmail ? c.modal.successEmail.replace('{email}', form.email) : <>We&apos;ll email <strong className="text-orange-500">{form.email}</strong> within 1 hour.</>}</span>
                     }
                   </p>
                   <button onClick={() => setOpen(false)}
-                    className="bg-orange-500 hover:bg-orange-400 text-white font-bold px-8 py-3 rounded-2xl transition-colors">
+                    className="bg-orange-500 hover:bg-orange-400 text-white font-bold px-10 py-3 rounded-2xl transition-colors">
                     {c.modal?.close || 'Close'}
                   </button>
                 </div>
               ) : (
-                <div className="px-6 py-5">
+                <div className="px-6 py-5 overflow-y-auto">
                   {/* progress */}
-                  <div className="mb-5">
-                    <div className="flex justify-between text-xs text-gray-400 mb-2">
-                      <span>{c.modal?.step || 'Step'} {step + 1} {c.modal?.of || 'of'} {STEPS.length}</span>
-                      <span>{pct}%</span>
+                  <div className="mb-6">
+                    <div className="flex justify-between items-center text-xs font-semibold mb-2">
+                      <span className="text-gray-400">{c.modal?.step || 'Step'} {step + 1} {c.modal?.of || 'of'} {STEPS.length}</span>
+                      <span className="text-orange-500">{pct}%</span>
                     </div>
                     <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
                       <div className="h-full bg-orange-500 rounded-full transition-all duration-500" style={{ width: `${pct}%` }} />
@@ -454,22 +454,26 @@ export default function ConstructionPage() {
                   </div>
 
                   <h3 className="text-xl font-black text-gray-900 mb-1">{cur.question}</h3>
-                  <p className="text-gray-500 text-sm mb-5">{cur.subtitle}</p>
+                  <p className="text-gray-400 text-sm mb-5">{cur.subtitle}</p>
 
                   {/* multi select */}
                   {cur.type === 'multi' && (
-                    <div className="space-y-2">
+                    <div className="space-y-2.5">
                       {cur.options.map(opt => {
                         const sel = form.services.includes(opt.label)
                         return (
                           <button key={opt.label} type="button" onClick={() => toggleMulti(opt.label)}
-                            className={`w-full flex items-center gap-4 p-4 rounded-2xl border text-left transition-all active:scale-[0.98] ${sel ? 'border-orange-400 bg-orange-50 text-gray-900' : 'border-gray-100 bg-gray-50 text-gray-700 hover:border-orange-200'}`}>
-                            <span className="text-2xl">{opt.icon}</span>
+                            className={`w-full flex items-center gap-4 p-4 rounded-2xl border-2 text-left transition-all duration-150 active:scale-[0.98] ${
+                              sel ? 'border-orange-400 bg-orange-50' : 'border-gray-100 bg-gray-50 hover:border-orange-200 hover:bg-white'
+                            }`}>
+                            <span className="text-2xl w-8 text-center shrink-0">{opt.icon}</span>
                             <div className="flex-1 min-w-0">
-                              <p className="font-bold text-sm">{opt.label}</p>
+                              <p className={`font-bold text-sm ${sel ? 'text-gray-900' : 'text-gray-700'}`}>{opt.label}</p>
                               <p className="text-xs text-gray-400 mt-0.5">{opt.desc}</p>
                             </div>
-                            <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 ${sel ? 'border-orange-500 bg-orange-500' : 'border-gray-300'}`}>
+                            <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 transition-colors ${
+                              sel ? 'border-orange-500 bg-orange-500' : 'border-gray-300'
+                            }`}>
                               {sel && <span className="text-white text-[10px] font-black">✓</span>}
                             </div>
                           </button>
@@ -480,18 +484,22 @@ export default function ConstructionPage() {
 
                   {/* single select — auto advance */}
                   {cur.type === 'single' && (
-                    <div className="space-y-2">
+                    <div className="space-y-2.5">
                       {cur.options.map(opt => {
                         const sel = form[cur.id] === opt.label
                         return (
                           <button key={opt.label} type="button" onClick={() => pickSingle(cur.id, opt.label)}
-                            className={`w-full flex items-center gap-4 p-4 rounded-2xl border text-left transition-all active:scale-[0.98] ${sel ? 'border-orange-400 bg-orange-50 text-gray-900' : 'border-gray-100 bg-gray-50 text-gray-700 hover:border-orange-200'}`}>
-                            <span className="text-2xl">{opt.icon}</span>
+                            className={`w-full flex items-center gap-4 p-4 rounded-2xl border-2 text-left transition-all duration-150 active:scale-[0.98] ${
+                              sel ? 'border-orange-400 bg-orange-50' : 'border-gray-100 bg-gray-50 hover:border-orange-200 hover:bg-white'
+                            }`}>
+                            <span className="text-2xl w-8 text-center shrink-0">{opt.icon}</span>
                             <div className="flex-1 min-w-0">
-                              <p className="font-bold text-sm">{opt.label}</p>
+                              <p className={`font-bold text-sm ${sel ? 'text-gray-900' : 'text-gray-700'}`}>{opt.label}</p>
                               <p className="text-xs text-gray-400 mt-0.5">{opt.desc}</p>
                             </div>
-                            <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 ${sel ? 'border-orange-500 bg-orange-500' : 'border-gray-300'}`}>
+                            <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 transition-colors ${
+                              sel ? 'border-orange-500 bg-orange-500' : 'border-gray-300'
+                            }`}>
                               {sel && <span className="text-white text-[10px] font-black">✓</span>}
                             </div>
                           </button>
@@ -503,80 +511,90 @@ export default function ConstructionPage() {
                   {/* contact step */}
                   {cur.type === 'contact' && (
                     <form onSubmit={submit} className="space-y-4">
-                      <div>
-                        <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-1.5">{c.modal?.fullname || 'Full Name'} *</label>
-                        <input value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
-                          placeholder="John Smith" required autoComplete="name"
-                          className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-900 text-sm focus:outline-none focus:border-orange-400 placeholder-gray-400 transition-all" />
+                      <div className="grid sm:grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">{c.modal?.fullname || 'Full Name'} <span className="text-orange-400">*</span></label>
+                          <input value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
+                            placeholder="John Smith" required autoComplete="name"
+                            className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400/30 focus:border-orange-400 placeholder-gray-300 transition-all" />
+                        </div>
+                        <div>
+                          <label className="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">{c.modal?.emailaddr || 'Email Address'} <span className="text-orange-400">*</span></label>
+                          <input value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
+                            type="email" placeholder="you@email.com" required autoComplete="email"
+                            className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400/30 focus:border-orange-400 placeholder-gray-300 transition-all" />
+                        </div>
                       </div>
                       <div>
-                        <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-1.5">{c.modal?.emailaddr || 'Email Address'} *</label>
-                        <input value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
-                          type="email" placeholder="you@email.com" required autoComplete="email"
-                          className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-900 text-sm focus:outline-none focus:border-orange-400 placeholder-gray-400 transition-all" />
-                      </div>
-                      <div>
-                        <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">{c.modal?.howrespond || 'How should we respond?'} *</label>
-                        <div className="grid grid-cols-2 gap-2">
+                        <label className="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-2">{c.modal?.howrespond || 'How should we respond?'} <span className="text-orange-400">*</span></label>
+                        <div className="grid grid-cols-2 gap-3">
                           {[
                             { val: 'email', icon: '📧', label: c.modal?.emailme || 'Email Me' },
                             { val: 'callback', icon: '📞', label: c.modal?.callmeback || 'Call Me Back' },
                           ].map(m => (
                             <button key={m.val} type="button"
                               onClick={() => setForm(f => ({ ...f, contactMethod: m.val, callbackNumber: m.val === 'email' ? '' : f.callbackNumber }))}
-                              className={`flex items-center justify-center gap-2 py-3 rounded-xl border font-bold text-sm transition-all ${form.contactMethod === m.val ? 'border-orange-400 bg-orange-50 text-orange-600' : 'border-gray-200 bg-gray-50 text-gray-600 hover:border-orange-200'}`}>
-                              <span>{m.icon}</span> {m.label}
+                              className={`flex items-center justify-center gap-2 py-3.5 rounded-xl border-2 font-bold text-sm transition-all ${
+                                form.contactMethod === m.val
+                                  ? 'border-orange-400 bg-orange-50 text-orange-600'
+                                  : 'border-gray-200 bg-gray-50 text-gray-500 hover:border-orange-200'
+                              }`}>
+                              <span className="text-base">{m.icon}</span> {m.label}
                             </button>
                           ))}
                         </div>
                       </div>
                       {form.contactMethod === 'callback' && (
                         <div>
-                          <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-1.5">{c.modal?.phone || 'Best Phone Number'} *</label>
+                          <label className="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">{c.modal?.phone || 'Best Phone Number'} <span className="text-orange-400">*</span></label>
                           <input value={form.callbackNumber} onChange={e => setForm(f => ({ ...f, callbackNumber: e.target.value }))}
                             type="tel" placeholder="(512) 000-0000" required autoComplete="tel"
-                            className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-900 text-sm focus:outline-none focus:border-orange-400 placeholder-gray-400 transition-all" />
+                            className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400/30 focus:border-orange-400 placeholder-gray-300 transition-all" />
                         </div>
                       )}
                       <div>
-                        <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-1.5">{c.modal?.location || 'Project Location'}</label>
+                        <label className="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">{c.modal?.location || 'Project Location'}</label>
                         <input value={form.city} onChange={e => setForm(f => ({ ...f, city: e.target.value }))}
                           placeholder="Austin TX or 123 Main St, Cedar Park"
-                          className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-900 text-sm focus:outline-none focus:border-orange-400 placeholder-gray-400 transition-all" />
+                          className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400/30 focus:border-orange-400 placeholder-gray-300 transition-all" />
                       </div>
                       <div>
-                        <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-1.5">{c.modal?.details || 'Additional Details'}</label>
+                        <label className="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">{c.modal?.details || 'Additional Details'}</label>
                         <textarea value={form.notes} onChange={e => setForm(f => ({ ...f, notes: e.target.value }))}
-                          rows={3} placeholder="Describe the project, access issues, materials, etc."
-                          className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-900 text-sm focus:outline-none focus:border-orange-400 placeholder-gray-400 resize-none transition-all" />
+                          rows={3} placeholder="Describe the project, access issues, timeline, etc."
+                          className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400/30 focus:border-orange-400 placeholder-gray-300 resize-none transition-all" />
                       </div>
-                      {err && <p className="text-red-500 text-sm bg-red-50 border border-red-200 rounded-xl px-4 py-2">{err}</p>}
+                      {err && (
+                        <div className="flex items-center gap-2 text-red-600 text-sm bg-red-50 border border-red-200 rounded-xl px-4 py-3">
+                          <span className="shrink-0">⚠️</span> {err}
+                        </div>
+                      )}
                       <button type="submit" disabled={saving || !canNext()}
-                        className="w-full bg-orange-500 hover:bg-orange-600 disabled:opacity-50 text-white font-black py-4 rounded-2xl text-lg transition-colors">
+                        className="w-full bg-orange-500 hover:bg-orange-600 disabled:opacity-50 disabled:cursor-not-allowed text-white font-black py-4 rounded-2xl text-base tracking-wide transition-colors shadow-lg shadow-orange-500/20">
                         {saving ? (c.modal?.sending || 'Sending…') : (c.modal?.send || 'SEND MY FREE ESTIMATE →')}
                       </button>
-                      <p className="text-center text-gray-400 text-xs">{c.modal?.nospam || 'No spam ever. We only contact you about your project.'}</p>
+                      <p className="text-center text-gray-400 text-xs pb-1">{c.modal?.nospam || 'No spam ever. We only contact you about your project.'}</p>
                     </form>
                   )}
 
                   {/* nav buttons (multi only — single auto-advances) */}
                   {cur.type === 'multi' && (
-                    <div className="flex gap-3 mt-5">
+                    <div className="flex gap-3 mt-6">
                       {step > 0 && (
                         <button type="button" onClick={() => setStep(s => s - 1)}
-                          className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-600 hover:text-gray-900 font-bold py-3.5 rounded-2xl text-sm transition-colors">
+                          className="flex-none px-6 bg-gray-100 hover:bg-gray-200 text-gray-600 hover:text-gray-900 font-bold py-3.5 rounded-2xl text-sm transition-colors">
                           {c.modal?.back || '← Back'}
                         </button>
                       )}
                       <button type="button" onClick={() => setStep(s => s + 1)} disabled={!canNext()}
-                        className="flex-1 bg-orange-500 hover:bg-orange-600 disabled:opacity-40 disabled:cursor-not-allowed text-white font-black py-3.5 rounded-2xl text-sm transition-all">
+                        className="flex-1 bg-orange-500 hover:bg-orange-600 disabled:opacity-40 disabled:cursor-not-allowed text-white font-black py-3.5 rounded-2xl text-sm transition-all shadow-lg shadow-orange-500/20">
                         {c.modal?.next || 'NEXT →'}
                       </button>
                     </div>
                   )}
                   {cur.type === 'contact' && step > 0 && (
                     <button type="button" onClick={() => setStep(s => s - 1)}
-                      className="w-full mt-3 bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold py-3 rounded-2xl text-sm transition-colors">
+                      className="w-full mt-3 bg-gray-100 hover:bg-gray-200 text-gray-500 hover:text-gray-800 font-bold py-3 rounded-2xl text-sm transition-colors">
                       {c.modal?.back || '← Back'}
                     </button>
                   )}
