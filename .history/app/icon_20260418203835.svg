@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#818cf8">
+        <animate attributeName="stop-color"
+          values="#818cf8;#c084fc;#38bdf8;#818cf8"
+          dur="3s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="100%" stop-color="#c084fc">
+        <animate attributeName="stop-color"
+          values="#c084fc;#38bdf8;#818cf8;#c084fc"
+          dur="3s" repeatCount="indefinite"/>
+      </stop>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="1.2" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Dark background tile -->
+  <rect width="32" height="32" rx="6" fill="#050508"/>
+
+  <!-- Subtle inner border -->
+  <rect x="1" y="1" width="30" height="30" rx="5.5"
+    fill="none" stroke="rgba(129,140,248,0.18)" stroke-width="1"/>
+
+  <!-- Animated </> glyph -->
+  <text
+    x="16" y="22"
+    font-family="'Courier New', Courier, monospace"
+    font-size="15"
+    font-weight="700"
+    text-anchor="middle"
+    fill="url(#g)"
+    filter="url(#glow)">&lt;/&gt;</text>
+</svg>

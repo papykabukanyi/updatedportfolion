@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <defs>
+    <linearGradient id="crow-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1a0a2e"/>
+      <stop offset="100%" stop-color="#0a0214"/>
+    </linearGradient>
+    <linearGradient id="crow-glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a855f7">
+        <animate attributeName="stop-color" values="#a855f7;#7c3aed;#c084fc;#a855f7" dur="3s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="100%" stop-color="#7c3aed">
+        <animate attributeName="stop-color" values="#7c3aed;#c084fc;#a855f7;#7c3aed" dur="3s" repeatCount="indefinite"/>
+      </stop>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="0.8" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <!-- Background -->
+  <rect width="32" height="32" rx="6" fill="url(#crow-bg)"/>
+  <rect x="1" y="1" width="30" height="30" rx="5.5" fill="none" stroke="rgba(168,85,247,0.25)" stroke-width="1"/>
+  <!-- Crow/raven silhouette -->
+  <g fill="url(#crow-glow)" filter="url(#glow)">
+    <!-- Body -->
+    <ellipse cx="16" cy="19" rx="6" ry="5"/>
+    <!-- Head -->
+    <circle cx="21" cy="13" r="3.5"/>
+    <!-- Beak -->
+    <polygon points="24,12 27,13 24,14"/>
+    <!-- Tail feathers -->
+    <polygon points="10,18 7,23 11,21"/>
+    <polygon points="10,20 6,26 11,23"/>
+    <!-- Wing detail -->
+    <ellipse cx="14" cy="17" rx="4.5" ry="2.5" transform="rotate(-15, 14, 17)" fill="rgba(124,58,237,0.6)"/>
+  </g>
+  <!-- Eye -->
+  <circle cx="22" cy="12.5" r="0.8" fill="#f3e8ff"/>
+</svg>
+
+  <!-- Animated </> glyph -->
+  <text
+    x="16" y="22"
+    font-family="'Courier New', Courier, monospace"
+    font-size="15"
+    font-weight="700"
+    text-anchor="middle"
+    fill="url(#g)"
+    filter="url(#glow)">&lt;/&gt;</text>
+</svg>
