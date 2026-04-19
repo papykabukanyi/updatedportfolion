@@ -251,7 +251,7 @@ export default function ConstructionPage() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {SERVICES.map(sv => (
               <button key={sv.num} onClick={openForm}
-                className="group text-left bg-gray-50 hover:bg-orange-50 border border-gray-100 hover:border-orange-200 rounded-2xl p-6 transition-all hover:-translate-y-0.5 active:scale-[0.99]">
+                className="group text-left bg-white hover:bg-orange-50 border-2 border-gray-200 hover:border-orange-400 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all hover:-translate-y-1 active:scale-[0.99]">
                 <p className="text-orange-500 font-black text-sm tracking-widest mb-3">{sv.num}</p>
                 <h3 className="text-gray-900 font-black text-lg mb-2 group-hover:text-orange-600 transition-colors">{sv.title}</h3>
                 <p className="text-gray-500 text-sm leading-relaxed mb-4">{sv.desc}</p>
