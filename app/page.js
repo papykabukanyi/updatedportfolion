@@ -393,18 +393,13 @@ export default function ConstructionPage() {
       </footer>
 
       {/* ── STICKY MOBILE BAR */}
-      <div className="sm:hidden fixed bottom-0 inset-x-0 z-40 bg-gray-950 border-t border-gray-800 px-4 pt-3 pb-5 safe-bottom">
-        <div className="flex gap-3">
-          <a href="tel:+10000000000"
-            className="flex-1 flex items-center justify-center gap-2 bg-white/10 border border-white/20 text-white font-bold py-4 rounded-2xl text-sm active:scale-[0.97] transition-transform duration-150">
-            📞 Call Now
-          </a>
-          <button onClick={openForm}
-            className="flex-1 bg-orange-500 text-white font-black py-4 rounded-2xl text-sm active:scale-[0.97] transition-transform duration-150"
-            style={{ boxShadow: '0 4px 20px rgba(249,115,22,.5)' }}>
-            Get Estimate →
-          </button>
-        </div>
+      <div className="sm:hidden fixed bottom-0 inset-x-0 z-40 bg-white border-t border-gray-100 px-4 pt-3 pb-5 safe-bottom">
+        <button onClick={openForm}
+          className="w-full bg-orange-500 text-white font-black py-4 rounded-2xl text-base tracking-wide active:scale-[0.97] transition-transform duration-150"
+          style={{ boxShadow: '0 6px 28px rgba(249,115,22,.55)' }}>
+          Get Free Estimate →
+        </button>
+        <p className="text-center text-gray-400 text-[11px] mt-2">We respond within 1 hour</p>
       </div>
 
       {/* ── LEAD FORM MODAL */}
