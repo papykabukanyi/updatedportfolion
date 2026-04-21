@@ -570,8 +570,21 @@ export default function ConstructionPage() {
                         </div>
                       )}
                       <button type="submit" disabled={saving || !canNext()}
-                        className="w-full bg-orange-500 hover:bg-orange-600 disabled:opacity-50 disabled:cursor-not-allowed text-white font-black py-4 rounded-2xl text-base tracking-wide transition-colors shadow-lg shadow-orange-500/20">
-                        {saving ? (c.modal?.sending || 'Sending…') : (c.modal?.send || 'SEND MY FREE ESTIMATE →')}
+                        className="relative w-full overflow-hidden group/btn bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-400 hover:to-orange-500 disabled:from-gray-300 disabled:to-gray-300 disabled:cursor-not-allowed text-white font-black py-4 rounded-2xl text-base tracking-widest uppercase transition-all duration-200 shadow-xl shadow-orange-500/30 hover:shadow-orange-500/50 hover:-translate-y-0.5 active:translate-y-0 active:shadow-md disabled:shadow-none disabled:translate-y-0">
+                        <span className="relative z-10 flex items-center justify-center gap-2">
+                          {saving ? (
+                            <>
+                              <svg className="animate-spin w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24">
+                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
+                              </svg>
+                              {c.modal?.sending || 'Sending…'}
+                            </>
+                          ) : (
+                            <>{c.modal?.send || 'Send My Free Estimate'} <span className="group-hover/btn:translate-x-1 transition-transform duration-150 inline-block">→</span></>
+                          )}
+                        </span>
+                        <span className="absolute inset-0 bg-white/10 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-200 rounded-2xl" />
                       </button>
                       <p className="text-center text-gray-400 text-xs pb-1">{c.modal?.nospam || 'No spam ever. We only contact you about your project.'}</p>
                     </form>
