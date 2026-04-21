@@ -393,13 +393,18 @@ export default function ConstructionPage() {
       </footer>
 
       {/* ── STICKY MOBILE BAR */}
-      <div className="sm:hidden fixed bottom-0 inset-x-0 z-40 bg-white border-t border-gray-100 px-4 py-3 safe-bottom">
-        <button onClick={openForm}
-          className="w-full bg-orange-500 text-white font-black py-4 rounded-2xl text-base active:scale-[0.97] transition-transform duration-150"
-          style={{ animation: 'ctaPulse 2.4s ease-in-out infinite' }}>
-          {c.hero?.cta || 'Get Free Estimate'} →
-        </button>
-        <style>{`@keyframes ctaPulse{0%,100%{box-shadow:0 4px 20px rgba(249,115,22,.4)}50%{box-shadow:0 4px 36px rgba(249,115,22,.7)}}`}</style>
+      <div className="sm:hidden fixed bottom-0 inset-x-0 z-40 bg-gray-950 border-t border-gray-800 px-4 pt-3 pb-5 safe-bottom">
+        <div className="flex gap-3">
+          <a href="tel:+10000000000"
+            className="flex-1 flex items-center justify-center gap-2 bg-white/10 border border-white/20 text-white font-bold py-4 rounded-2xl text-sm active:scale-[0.97] transition-transform duration-150">
+            📞 Call Now
+          </a>
+          <button onClick={openForm}
+            className="flex-1 bg-orange-500 text-white font-black py-4 rounded-2xl text-sm active:scale-[0.97] transition-transform duration-150"
+            style={{ boxShadow: '0 4px 20px rgba(249,115,22,.5)' }}>
+            Get Estimate →
+          </button>
+        </div>
       </div>
 
       {/* ── LEAD FORM MODAL */}
@@ -596,7 +601,8 @@ export default function ConstructionPage() {
                   {cur.type === 'multi' && (
                     <div className="flex flex-col gap-2 mt-6">
                       <button type="button" onClick={() => setStep(s => s + 1)} disabled={!canNext()}
-                        className="w-full bg-orange-500 hover:bg-orange-600 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-black py-4 rounded-2xl text-base transition-colors shadow-lg shadow-orange-500/30 disabled:shadow-none active:scale-[0.98]">
+                        className="w-full bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 disabled:from-gray-300 disabled:to-gray-300 disabled:cursor-not-allowed text-white font-black py-4 rounded-2xl text-base tracking-wide transition-all disabled:shadow-none active:scale-[0.98]"
+                        style={{ boxShadow: !canNext() ? 'none' : '0 6px 24px rgba(249,115,22,.45)' }}>
                         {c.modal?.next || 'Next'} →
                       </button>
                       {step > 0 && (
