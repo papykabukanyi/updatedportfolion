@@ -393,17 +393,13 @@ export default function ConstructionPage() {
       </footer>
 
       {/* ── STICKY MOBILE BAR */}
-      <div className="sm:hidden fixed bottom-0 inset-x-0 z-40 px-4 pb-6 pt-3 safe-bottom"
-        style={{ background: 'linear-gradient(to top, #fff 60%, transparent)' }}>
+      <div className="sm:hidden fixed bottom-0 inset-x-0 z-40 bg-white border-t border-gray-100 px-4 py-3 safe-bottom">
         <button onClick={openForm}
-          className="w-full bg-orange-500 text-white font-black py-4 rounded-2xl text-base active:scale-[0.97] transition-transform duration-100"
-          style={{ animation: 'ctaPulse 2.5s ease-in-out infinite' }}>
-          <span className="flex items-center justify-center gap-3">
-            {c.hero?.cta || 'Get Free Estimate'}
-            <span className="animate-bounce inline-block">→</span>
-          </span>
+          className="w-full bg-orange-500 text-white font-black py-4 rounded-2xl text-base active:scale-[0.97] transition-transform duration-150"
+          style={{ animation: 'ctaPulse 2.4s ease-in-out infinite' }}>
+          {c.hero?.cta || 'Get Free Estimate'} →
         </button>
-        <style>{`@keyframes ctaPulse{0%,100%{box-shadow:0 6px 24px rgba(249,115,22,.45)}50%{box-shadow:0 6px 44px rgba(249,115,22,.75)}}`}</style>
+        <style>{`@keyframes ctaPulse{0%,100%{box-shadow:0 4px 20px rgba(249,115,22,.4)}50%{box-shadow:0 4px 36px rgba(249,115,22,.7)}}`}</style>
       </div>
 
       {/* ── LEAD FORM MODAL */}
@@ -600,11 +596,8 @@ export default function ConstructionPage() {
                   {cur.type === 'multi' && (
                     <div className="flex flex-col gap-2 mt-6">
                       <button type="button" onClick={() => setStep(s => s + 1)} disabled={!canNext()}
-                        className="relative w-full overflow-hidden group/btn bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-400 hover:to-orange-500 disabled:from-gray-300 disabled:to-gray-400 disabled:cursor-not-allowed text-white font-black py-4 rounded-2xl text-lg transition-all duration-200 shadow-xl shadow-orange-500/30 hover:shadow-orange-500/50 hover:-translate-y-0.5 active:translate-y-0 active:shadow-md disabled:shadow-none disabled:translate-y-0">
-                        <span className="relative z-10 flex items-center justify-center gap-3">
-                          {c.modal?.next || 'Next'} <span className="group-hover/btn:translate-x-1 transition-transform duration-150 inline-block">→</span>
-                        </span>
-                        <span className="absolute inset-0 bg-white/10 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-200 rounded-2xl" />
+                        className="w-full bg-orange-500 hover:bg-orange-600 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-black py-4 rounded-2xl text-base transition-colors shadow-lg shadow-orange-500/30 disabled:shadow-none active:scale-[0.98]">
+                        {c.modal?.next || 'Next'} →
                       </button>
                       {step > 0 && (
                         <button type="button" onClick={() => setStep(s => s - 1)}
