@@ -3,7 +3,13 @@ import { Pool } from 'pg'
 
 const pool = new Pool({ connectionString: process.env.DATABASE_URL })
 
+// Add contact_method column if it doesn't exist yet (safe, runs once per process)
+const migrated = pool.query(
+  `ALTER TABLE construction_leads ADD COLUMN IF NOT EXISTS contact_method TEXT`
+).catch(() => {})
+
 export async function POST(req) {
+  await migrated
   try {
     const body = await req.json().catch(() => ({}))
     const { services, scope, size, timeline, budget, name, email, contactMethod, callbackNumber, city, notes } = body
