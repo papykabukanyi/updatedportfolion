@@ -393,11 +393,31 @@ export default function ConstructionPage() {
       </footer>
 
       {/* ── STICKY MOBILE BAR */}
-      <div className="sm:hidden fixed bottom-0 inset-x-0 z-40 bg-white border-t border-gray-100 p-4 safe-bottom">
+      <div className="sm:hidden fixed bottom-0 inset-x-0 z-40 p-3 pb-5 safe-bottom"
+        style={{ background: 'linear-gradient(to top, rgba(255,255,255,1) 70%, rgba(255,255,255,0))' }}>
         <button onClick={openForm}
-          className="w-full bg-orange-500 hover:bg-orange-600 text-white font-black py-4 rounded-2xl text-base transition-colors shadow-lg shadow-orange-500/30">
-          {c.hero?.cta || 'Get Free Estimate'} — 1 Hr Response ⏱
+          className="relative w-full overflow-hidden group bg-gradient-to-r from-orange-500 via-orange-500 to-red-500 text-white font-black py-4 rounded-2xl text-base shadow-2xl shadow-orange-500/50 active:scale-[0.97] transition-transform duration-150"
+          style={{ animation: 'mobilePulse 2.4s ease-in-out infinite' }}>
+          {/* shimmer sweep */}
+          <span className="absolute inset-0 -translate-x-full group-active:translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-500 ease-in-out pointer-events-none" />
+          {/* left ping dot */}
+          <span className="absolute left-4 top-1/2 -translate-y-1/2 flex h-3 w-3">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-60" />
+            <span className="relative inline-flex rounded-full h-3 w-3 bg-white/90" />
+          </span>
+          {/* label */}
+          <span className="relative z-10 flex items-center justify-center gap-2">
+            <span>{c.hero?.cta || 'GET FREE ESTIMATE'}</span>
+            <span className="bg-white/20 rounded-lg px-2 py-0.5 text-xs font-bold tracking-wide">1 HR ⚡</span>
+            <span className="animate-bounce inline-block">→</span>
+          </span>
         </button>
+        <style>{`
+          @keyframes mobilePulse {
+            0%, 100% { box-shadow: 0 8px 32px rgba(249,115,22,0.45); }
+            50% { box-shadow: 0 8px 48px rgba(249,115,22,0.75); }
+          }
+        `}</style>
       </div>
 
       {/* ── LEAD FORM MODAL */}
