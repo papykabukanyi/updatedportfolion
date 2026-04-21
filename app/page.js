@@ -393,31 +393,21 @@ export default function ConstructionPage() {
       </footer>
 
       {/* ── STICKY MOBILE BAR */}
-      <div className="sm:hidden fixed bottom-0 inset-x-0 z-40 p-3 pb-5 safe-bottom"
-        style={{ background: 'linear-gradient(to top, rgba(255,255,255,1) 70%, rgba(255,255,255,0))' }}>
+      <div className="sm:hidden fixed bottom-0 inset-x-0 z-40 px-4 pb-6 pt-3 safe-bottom"
+        style={{ background: 'linear-gradient(to top, #fff 60%, transparent)' }}>
         <button onClick={openForm}
-          className="relative w-full overflow-hidden group bg-gradient-to-r from-orange-500 via-orange-500 to-red-500 text-white font-black py-4 rounded-2xl text-base shadow-2xl shadow-orange-500/50 active:scale-[0.97] transition-transform duration-150"
-          style={{ animation: 'mobilePulse 2.4s ease-in-out infinite' }}>
-          {/* shimmer sweep */}
-          <span className="absolute inset-0 -translate-x-full group-active:translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-500 ease-in-out pointer-events-none" />
-          {/* left ping dot */}
-          <span className="absolute left-4 top-1/2 -translate-y-1/2 flex h-3 w-3">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-60" />
-            <span className="relative inline-flex rounded-full h-3 w-3 bg-white/90" />
+          className="relative w-full overflow-hidden bg-orange-500 text-white font-black py-4 rounded-2xl text-base shadow-xl shadow-orange-500/40 active:scale-[0.98] transition-transform duration-100"
+          style={{ animation: 'ctaPulse 2.5s ease-in-out infinite' }}>
+          {/* live dot */}
+          <span className="absolute left-5 top-1/2 -translate-y-1/2 flex h-2.5 w-2.5">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white/70" />
+            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-white" />
           </span>
-          {/* label */}
-          <span className="relative z-10 flex items-center justify-center gap-2">
-            <span>{c.hero?.cta || 'GET FREE ESTIMATE'}</span>
-            <span className="bg-white/20 rounded-lg px-2 py-0.5 text-xs font-bold tracking-wide">1 HR ⚡</span>
-            <span className="animate-bounce inline-block">→</span>
+          <span className="flex items-center justify-center gap-2">
+            Get Free Estimate <span className="animate-bounce inline-block">→</span>
           </span>
         </button>
-        <style>{`
-          @keyframes mobilePulse {
-            0%, 100% { box-shadow: 0 8px 32px rgba(249,115,22,0.45); }
-            50% { box-shadow: 0 8px 48px rgba(249,115,22,0.75); }
-          }
-        `}</style>
+        <style>{`@keyframes ctaPulse{0%,100%{box-shadow:0 8px 24px rgba(249,115,22,.4)}50%{box-shadow:0 8px 40px rgba(249,115,22,.7)}}`}</style>
       </div>
 
       {/* ── LEAD FORM MODAL */}
