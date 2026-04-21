@@ -600,9 +600,9 @@ export default function ConstructionPage() {
                         </button>
                       )}
                       <button type="button" onClick={() => setStep(s => s + 1)} disabled={!canNext()}
-                        className="relative flex-1 overflow-hidden group/btn bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-400 hover:to-orange-500 disabled:from-gray-300 disabled:to-gray-300 disabled:cursor-not-allowed text-white font-black py-4 rounded-2xl text-base tracking-widest uppercase transition-all duration-200 shadow-xl shadow-orange-500/30 hover:shadow-orange-500/50 hover:-translate-y-0.5 active:translate-y-0 active:shadow-md disabled:shadow-none disabled:translate-y-0">
-                        <span className="relative z-10 flex items-center justify-center gap-2">
-                          {c.modal?.next || 'NEXT'} <span className="group-hover/btn:translate-x-1 transition-transform duration-150 inline-block">→</span>
+                        className="relative flex-1 overflow-hidden group/btn bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-400 hover:to-orange-500 disabled:from-gray-300 disabled:to-gray-300 disabled:cursor-not-allowed text-white font-black py-4 rounded-2xl text-base transition-all duration-200 shadow-xl shadow-orange-500/30 hover:shadow-orange-500/50 hover:-translate-y-0.5 active:translate-y-0 active:shadow-md disabled:shadow-none disabled:translate-y-0">
+                        <span className="relative z-10 flex items-center justify-center gap-2 whitespace-nowrap">
+                          {c.modal?.next || 'Next'} <span className="group-hover/btn:translate-x-1 transition-transform duration-150 inline-block">→</span>
                         </span>
                         <span className="absolute inset-0 bg-white/10 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-200 rounded-2xl" />
                       </button>
