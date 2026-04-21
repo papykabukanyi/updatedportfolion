@@ -395,7 +395,7 @@ export default function ConstructionPage() {
       {/* ── STICKY MOBILE BAR */}
       <div className="sm:hidden fixed bottom-0 inset-x-0 z-40 bg-white border-t border-gray-100 px-4 pt-3 pb-5 safe-bottom">
         <button onClick={openForm}
-          className="w-full bg-gradient-to-r from-orange-500 via-orange-600 to-red-500 hover:from-orange-600 hover:via-orange-700 hover:to-red-600 text-white font-black py-4 rounded-2xl text-base tracking-wide text-center active:scale-[0.97] hover:scale-105 transition-all duration-200 shadow-lg shadow-orange-500/40 hover:shadow-xl hover:shadow-orange-500/50 focus:outline-none focus:ring-2 focus:ring-orange-300"
+          className="flex justify-center items-center w-full bg-gradient-to-r from-orange-500 via-orange-600 to-red-500 hover:from-orange-600 hover:via-orange-700 hover:to-red-600 text-white font-black py-4 rounded-2xl text-base tracking-wide text-center active:scale-[0.97] hover:scale-105 transition-all duration-200 shadow-lg shadow-orange-500/40 hover:shadow-xl hover:shadow-orange-500/50 focus:outline-none focus:ring-2 focus:ring-orange-300"
           style={{ animation: 'buttonGlow 2s ease-in-out infinite' }}>
           Get Free Estimate →
         </button>
@@ -599,7 +599,7 @@ export default function ConstructionPage() {
                   {cur.type === 'multi' && (
                     <div className="flex flex-col gap-2 mt-6">
                       <button type="button" onClick={() => setStep(s => s + 1)} disabled={!canNext()}
-                        className="w-full bg-gradient-to-r from-orange-500 via-orange-600 to-red-500 hover:from-orange-600 hover:via-orange-700 hover:to-red-600 disabled:bg-gray-400 disabled:text-gray-200 disabled:cursor-not-allowed text-white font-black py-4 rounded-2xl text-base tracking-wide text-center transition-all duration-200 disabled:shadow-none active:scale-[0.98] hover:scale-105 focus:outline-none focus:ring-2 focus:ring-orange-300 shadow-lg shadow-orange-500/40 hover:shadow-xl hover:shadow-orange-500/50"
+                        className="flex justify-center items-center w-full bg-gradient-to-r from-orange-500 via-orange-600 to-red-500 hover:from-orange-600 hover:via-orange-700 hover:to-red-600 disabled:bg-gray-400 disabled:text-gray-200 disabled:cursor-not-allowed text-white font-black py-4 rounded-2xl text-base tracking-wide text-center transition-all duration-200 disabled:shadow-none active:scale-[0.98] hover:scale-105 focus:outline-none focus:ring-2 focus:ring-orange-300 shadow-lg shadow-orange-500/40 hover:shadow-xl hover:shadow-orange-500/50"
                         style={{ boxShadow: !canNext() ? 'none' : '0 6px 24px rgba(249,115,22,.45)', animation: canNext() ? 'buttonGlow 2s ease-in-out infinite' : 'none' }}>
                         {c.modal?.next || 'Next'} →
                       </button>
