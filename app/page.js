@@ -595,20 +595,23 @@ export default function ConstructionPage() {
                     <div className="flex gap-3 mt-6">
                       {step > 0 && (
                         <button type="button" onClick={() => setStep(s => s - 1)}
-                          className="flex-none px-6 bg-gray-100 hover:bg-gray-200 text-gray-600 hover:text-gray-900 font-bold py-3.5 rounded-2xl text-sm transition-colors">
-                          {c.modal?.back || '← Back'}
+                          className="flex-none px-5 bg-gray-100 hover:bg-gray-200 text-gray-500 hover:text-gray-900 font-bold py-4 rounded-2xl text-sm transition-colors">
+                          ← {c.modal?.back || 'Back'}
                         </button>
                       )}
                       <button type="button" onClick={() => setStep(s => s + 1)} disabled={!canNext()}
-                        className="flex-1 bg-orange-500 hover:bg-orange-600 disabled:opacity-40 disabled:cursor-not-allowed text-white font-black py-3.5 rounded-2xl text-sm transition-all shadow-lg shadow-orange-500/20">
-                        {c.modal?.next || 'NEXT →'}
+                        className="group/next relative flex-1 overflow-hidden bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-400 hover:to-red-400 disabled:from-gray-300 disabled:to-gray-300 disabled:cursor-not-allowed text-white font-black py-4 rounded-2xl text-sm transition-all duration-200 hover:-translate-y-0.5 shadow-lg shadow-orange-500/25 disabled:shadow-none">
+                        <span className="relative z-10 flex items-center justify-center gap-2">
+                          {c.modal?.next || 'NEXT'} <span className="group-hover/next:translate-x-1 transition-transform duration-150 inline-block">→</span>
+                        </span>
+                        <span className="absolute inset-0 bg-white/10 opacity-0 group-hover/next:opacity-100 transition-opacity duration-200 rounded-2xl" />
                       </button>
                     </div>
                   )}
                   {cur.type === 'contact' && step > 0 && (
                     <button type="button" onClick={() => setStep(s => s - 1)}
                       className="w-full mt-3 bg-gray-100 hover:bg-gray-200 text-gray-500 hover:text-gray-800 font-bold py-3 rounded-2xl text-sm transition-colors">
-                      {c.modal?.back || '← Back'}
+                      ← {c.modal?.back || 'Back'}
                     </button>
                   )}
                 </div>
