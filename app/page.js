@@ -179,9 +179,9 @@ export default function ConstructionPage() {
             </div>
           </a>
           <div className="hidden sm:flex items-center gap-5">
-            <a href="#services" className={`text-sm font-medium transition-colors hover:text-orange-500 ${navScrolled ? 'text-gray-600' : 'text-gray-200'}`}>{c.nav?.services || 'Services'}</a>
-            <a href="#about" className={`text-sm font-medium transition-colors hover:text-orange-500 ${navScrolled ? 'text-gray-600' : 'text-gray-200'}`}>{c.nav?.about || 'About'}</a>
-            <a href="#areas" className={`text-sm font-medium transition-colors hover:text-orange-500 ${navScrolled ? 'text-gray-600' : 'text-gray-200'}`}>{c.nav?.areas || 'Areas'}</a>
+            <button onClick={e => { e.preventDefault(); document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' }) }} className={`text-sm font-medium transition-colors hover:text-orange-500 ${navScrolled ? 'text-gray-600' : 'text-gray-200'}`}>{c.nav?.services || 'Services'}</button>
+            <button onClick={e => { e.preventDefault(); document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' }) }} className={`text-sm font-medium transition-colors hover:text-orange-500 ${navScrolled ? 'text-gray-600' : 'text-gray-200'}`}>{c.nav?.about || 'About'}</button>
+            <button onClick={e => { e.preventDefault(); document.getElementById('areas')?.scrollIntoView({ behavior: 'smooth' }) }} className={`text-sm font-medium transition-colors hover:text-orange-500 ${navScrolled ? 'text-gray-600' : 'text-gray-200'}`}>{c.nav?.areas || 'Areas'}</button>
             <div className="relative">
               <button
                 onClick={() => setLangOpen(o => !o)}
