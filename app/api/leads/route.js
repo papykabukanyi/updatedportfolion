@@ -3,10 +3,11 @@ import { Pool } from 'pg'
 
 const pool = new Pool({ connectionString: process.env.DATABASE_URL })
 
-// Add contact_method column if it doesn't exist yet (safe, runs once per process)
-const migrated = pool.query(
-  `ALTER TABLE construction_leads ADD COLUMN IF NOT EXISTS contact_method TEXT`
-).catch(() => {})
+// Safe schema migrations — run once per process startup
+const migrated = Promise.all([
+  pool.query(`ALTER TABLE construction_leads ADD COLUMN IF NOT EXISTS contact_method TEXT`),
+  pool.query(`ALTER TABLE construction_leads ALTER COLUMN phone DROP NOT NULL`),
+]).catch(() => {})
 
 export async function POST(req) {
   await migrated
