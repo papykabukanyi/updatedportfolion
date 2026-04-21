@@ -136,12 +136,12 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.5 }}
           className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 sm:gap-4 w-full sm:w-auto"
         >
-          <a
-            href="#experience"
+          <button
+            onClick={e => { e.preventDefault(); document.getElementById('experience')?.scrollIntoView({ behavior: 'smooth' }) }}
             className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-purple-600 text-white font-semibold hover:opacity-90 transition-all duration-200 glow-btn shadow-lg shadow-cyan-500/20 text-center"
           >
             {t.hero.viewWork}
-          </a>
+          </button>
           <a
             href="/resume"
             target="_blank"
@@ -164,8 +164,8 @@ export default function Hero() {
       </div>
 
       {/* Scroll indicator */}
-      <motion.a
-        href="#about"
+      <motion.button
+        onClick={e => { e.preventDefault(); document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' }) }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2 }}
@@ -173,7 +173,7 @@ export default function Hero() {
         aria-label="Scroll down"
       >
         <FiArrowDown size={22} />
-      </motion.a>
+      </motion.button>
     </section>
   )
 }
