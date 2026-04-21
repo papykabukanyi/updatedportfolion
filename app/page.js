@@ -396,18 +396,14 @@ export default function ConstructionPage() {
       <div className="sm:hidden fixed bottom-0 inset-x-0 z-40 px-4 pb-6 pt-3 safe-bottom"
         style={{ background: 'linear-gradient(to top, #fff 60%, transparent)' }}>
         <button onClick={openForm}
-          className="relative w-full overflow-hidden bg-orange-500 text-white font-black py-4 rounded-2xl text-base shadow-xl shadow-orange-500/40 active:scale-[0.98] transition-transform duration-100"
+          className="w-full bg-orange-500 text-white font-black py-4 rounded-2xl text-base active:scale-[0.97] transition-transform duration-100"
           style={{ animation: 'ctaPulse 2.5s ease-in-out infinite' }}>
-          {/* live dot */}
-          <span className="absolute left-5 top-1/2 -translate-y-1/2 flex h-2.5 w-2.5">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white/70" />
-            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-white" />
-          </span>
-          <span className="flex items-center justify-center gap-2">
-            Get Free Estimate <span className="animate-bounce inline-block">→</span>
+          <span className="flex items-center justify-center gap-3">
+            {c.hero?.cta || 'Get Free Estimate'}
+            <span className="animate-bounce inline-block">→</span>
           </span>
         </button>
-        <style>{`@keyframes ctaPulse{0%,100%{box-shadow:0 8px 24px rgba(249,115,22,.4)}50%{box-shadow:0 8px 40px rgba(249,115,22,.7)}}`}</style>
+        <style>{`@keyframes ctaPulse{0%,100%{box-shadow:0 6px 24px rgba(249,115,22,.45)}50%{box-shadow:0 6px 44px rgba(249,115,22,.75)}}`}</style>
       </div>
 
       {/* ── LEAD FORM MODAL */}
@@ -605,7 +601,7 @@ export default function ConstructionPage() {
                     <div className="flex flex-col gap-2 mt-6">
                       <button type="button" onClick={() => setStep(s => s + 1)} disabled={!canNext()}
                         className="relative w-full overflow-hidden group/btn bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-400 hover:to-orange-500 disabled:from-gray-300 disabled:to-gray-400 disabled:cursor-not-allowed text-white font-black py-4 rounded-2xl text-lg transition-all duration-200 shadow-xl shadow-orange-500/30 hover:shadow-orange-500/50 hover:-translate-y-0.5 active:translate-y-0 active:shadow-md disabled:shadow-none disabled:translate-y-0">
-                        <span className="relative z-10 flex items-center justify-center gap-2 whitespace-nowrap">
+                        <span className="relative z-10 flex items-center justify-center gap-3">
                           {c.modal?.next || 'Next'} <span className="group-hover/btn:translate-x-1 transition-transform duration-150 inline-block">→</span>
                         </span>
                         <span className="absolute inset-0 bg-white/10 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-200 rounded-2xl" />
