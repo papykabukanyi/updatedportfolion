@@ -1,4 +1,4 @@
-// Contact form API - uses Resend HTTPS API (no SMTP, works on Railway)
+// Contact form API - uses Resend HTTPS API (no SMTP, works on Render)
 
 const stripHtml = (str) => String(str).replace(/<[^>]*>/g, '').trim()
 const clamp = (str, max) => stripHtml(str).slice(0, max)
