@@ -10,7 +10,7 @@ const jetbrainsMono = JetBrains_Mono({
   weight: ['400', '500', '700'],
 })
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://crow.up.railway.app'
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://papy-crow.onrender.com'
 
 export const metadata = {
   metadataBase: new URL(SITE_URL),
@@ -87,7 +87,7 @@ const jsonLd = {
     addressRegion: 'TX',
     addressCountry: 'US',
   },
-  founder: { '@type': 'Person', name: 'Papy Kabukanyi', url: 'https://hire-papy.up.railway.app' },
+  founder: { '@type': 'Person', name: 'Papy Kabukanyi', url: 'https://hire-papy.onrender.com' },
   foundingDate: '2024',
   knowsAbout: ['Local News', 'Investigative Journalism', 'Austin TX Politics', 'Texas News', 'Commentary'],
   areaServed: [

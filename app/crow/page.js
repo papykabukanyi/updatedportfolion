@@ -2,8 +2,8 @@
 import { useState, useEffect } from 'react'
 import CrowLogo from '@/components/CrowLogo'
 
-const PORTFOLIO_URL = process.env.NEXT_PUBLIC_PORTFOLIO_URL || 'https://hire-papy.up.railway.app'
-const STORE_URL = process.env.NEXT_PUBLIC_STORE_URL || 'https://papys-store.up.railway.app'
+const PORTFOLIO_URL = process.env.NEXT_PUBLIC_PORTFOLIO_URL || 'https://hire-papy.onrender.com'
+const STORE_URL = process.env.NEXT_PUBLIC_STORE_URL || 'https://papy-store.onrender.com'
 
 const PLACEHOLDER_ARTICLES = [
   {

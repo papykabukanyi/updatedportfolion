@@ -1,4 +1,4 @@
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://papykabukanyi.up.railway.app'
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://papy-crow.onrender.com'
 
 export default function sitemap() {
   return [

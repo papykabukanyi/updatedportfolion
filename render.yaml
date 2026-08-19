@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: papy-crow
+    runtime: node
+    region: oregon
+    plan: free
+    branch: crow
+    buildCommand: npm install && npm run build
+    startCommand: npm run start
+    autoDeploy: true
