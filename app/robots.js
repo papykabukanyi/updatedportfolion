@@ -1,4 +1,4 @@
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://papy-construction.up.railway.app'
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://papy-construction-demolition.onrender.com'
 
 export default function robots() {
   return {

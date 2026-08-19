@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: papy-construction-demolition
+    runtime: node
+    region: oregon
+    plan: free
+    branch: construction
+    buildCommand: npm install && npm run build
+    startCommand: npm run start
+    autoDeploy: true

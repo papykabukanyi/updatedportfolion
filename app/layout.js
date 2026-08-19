@@ -5,7 +5,7 @@ import { LangProvider } from '@/lib/LangContext'
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 const oswald = Oswald({ subsets: ['latin'], variable: '--font-oswald', weight: ['400', '500', '600', '700'] })
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://papy-construction-demolition.up.railway.app'
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://papy-construction-demolition.onrender.com'
 
 export const metadata = {
   metadataBase: new URL(SITE_URL),
