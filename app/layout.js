@@ -10,7 +10,7 @@ const jetbrainsMono = JetBrains_Mono({
   weight: ['400', '500', '700'],
 })
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://pkvault.up.railway.app'
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://papy-admin.onrender.com'
 
 export const metadata = {
   metadataBase: new URL(SITE_URL),

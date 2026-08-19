@@ -115,7 +115,7 @@ export default async function OGImage() {
             fontSize: 20,
           }}
         >
-          papykabukanyi.up.railway.app
+          papy-admin.onrender.com
         </div>
       </div>
     ),

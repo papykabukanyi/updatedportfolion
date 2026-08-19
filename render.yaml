@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: papy-admin
+    runtime: node
+    region: oregon
+    plan: free
+    branch: admin
+    buildCommand: npm install && npm run build
+    startCommand: npm run start
+    autoDeploy: true

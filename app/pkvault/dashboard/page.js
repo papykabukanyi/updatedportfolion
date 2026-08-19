@@ -195,15 +195,15 @@ export default function AdminDashboard() {
             <span className={`text-xs font-bold px-2.5 py-1 rounded-full border ${ACCENT[active.color].badge}`}>{active.label}</span>
           </div>
           <div className="ml-auto flex items-center gap-2">
-            <a href={process.env.NEXT_PUBLIC_PORTFOLIO_URL || 'https://hire-papy.up.railway.app'} target="_blank" rel="noopener noreferrer" className="hidden sm:flex items-center gap-1.5 text-gray-600 hover:text-gray-300 text-xs transition-colors min-h-0 px-2 py-1">
+            <a href={process.env.NEXT_PUBLIC_PORTFOLIO_URL || 'https://hire-papy.onrender.com'} target="_blank" rel="noopener noreferrer" className="hidden sm:flex items-center gap-1.5 text-gray-600 hover:text-gray-300 text-xs transition-colors min-h-0 px-2 py-1">
               <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
               Portfolio
             </a>
-            <a href={process.env.NEXT_PUBLIC_CROW_URL || 'https://crow.up.railway.app'} target="_blank" rel="noopener noreferrer" className="hidden sm:flex items-center gap-1.5 text-gray-600 hover:text-purple-400 text-xs transition-colors min-h-0 px-2 py-1">
+            <a href={process.env.NEXT_PUBLIC_CROW_URL || 'https://papy-crow.onrender.com'} target="_blank" rel="noopener noreferrer" className="hidden sm:flex items-center gap-1.5 text-gray-600 hover:text-purple-400 text-xs transition-colors min-h-0 px-2 py-1">
               <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
               CROW
             </a>
-            <a href={process.env.NEXT_PUBLIC_STORE_URL || 'https://papys-store.up.railway.app'} target="_blank" rel="noopener noreferrer" className="hidden sm:flex items-center gap-1.5 text-gray-600 hover:text-amber-400 text-xs transition-colors min-h-0 px-2 py-1">
+            <a href={process.env.NEXT_PUBLIC_STORE_URL || 'https://papy-store.onrender.com'} target="_blank" rel="noopener noreferrer" className="hidden sm:flex items-center gap-1.5 text-gray-600 hover:text-amber-400 text-xs transition-colors min-h-0 px-2 py-1">
               <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
               Store
             </a>
