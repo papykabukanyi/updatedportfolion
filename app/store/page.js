@@ -2,9 +2,9 @@
 import { useState, useEffect } from 'react'
 import CrowLogo from '@/components/CrowLogo'
 
-const PORTFOLIO_URL = process.env.NEXT_PUBLIC_PORTFOLIO_URL || 'https://hire-papy.up.railway.app'
-const CROW_URL = process.env.NEXT_PUBLIC_CROW_URL || 'https://crow.up.railway.app'
-const ADMIN_URL = process.env.NEXT_PUBLIC_ADMIN_URL || 'https://pk-admin.up.railway.app'
+const PORTFOLIO_URL = process.env.NEXT_PUBLIC_PORTFOLIO_URL || 'https://hire-papy.onrender.com'
+const CROW_URL = process.env.NEXT_PUBLIC_CROW_URL || 'https://papy-crow.onrender.com'
+const ADMIN_URL = process.env.NEXT_PUBLIC_ADMIN_URL || 'https://papy-admin.onrender.com'
 
 const PLACEHOLDER_PRODUCTS = [
   {

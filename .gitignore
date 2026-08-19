@@ -23,9 +23,13 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# local-only env overrides — never commit these
+# env files — never commit these
+.env
 .env.local
 .env.*.local
+
+# VS Code Local History
+.history/
 
 # vercel
 .vercel
